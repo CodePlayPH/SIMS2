@@ -48,21 +48,24 @@ function Login() {
   }
 
   useEffect(() => {
+    
     if (code == "") {
       setLoginStat(false);
 
       setPrevData(localStorage.getItem("userData"));
-      if (prevData) {
+      if (localStorage.getItem('userData') === "") {
         setUserData(prevData);
-        // history.replace("/home");
+        history.replace("/home");
     
        
       }
-      // else {
-      //   <button onClick={() => history.replace("/")}>
-      //   Login to continue
-      // </button>
-      // }
+      else {
+        <button onClick={() => history.replace("/")}>
+        Login to continue
+      </button>
+      }
+
+      console.log(localStorage.getItem('userData'))
     }
     
   }, [code]);
