@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -72,6 +72,16 @@ function Login() {
     }
   }
 
+  useEffect(() => {
+    if (code == "") setLoginStat(false);
+
+    var prevData = localStorage.getItem("userData");
+    if (prevData) {
+      setUserData(prevData);
+      history.replace("/home");
+    }
+  }, [code]);
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -84,18 +94,22 @@ function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
+              type="password"
               id="code"
               label="Enter Code"
               name="code"
               autoComplete="code"
               autoFocus
-              onChange={}
+              id={loginStat ? "outlined-error-helper-text" : ""}
+            onChange={(val) => setCode(val.target.value)}
+            helperText={loginStat ? "Login Failed" : ""}
+            value={code}
             />
             {/* <TextField
               variant="outlined"

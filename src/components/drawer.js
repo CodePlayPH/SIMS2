@@ -36,9 +36,6 @@ function MainDrawer(props) {
   const theme = useTheme();
   var history = useHistory();
 
-  var localData = JSON.parse(localStorage.getItem("userData"));
-  var user_name = localData["full_name"];
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
 //   const [userData, setUserData] = useState(user_name)
@@ -130,7 +127,7 @@ function MainDrawer(props) {
             onClick={() => logOut()}
             endIcon={<ExitToAppIcon />}
           >
-            Logout {user_name}
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
@@ -168,19 +165,6 @@ function MainDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {props.children}
-        {/* <Switch>
-                    <Route path="/home" exact component={Partners} />
-                    <Route path="/home/Bills" component={Bills} />
-                    <Route path="/home/Partners" component={Partners} />
-                    <Route path="/home/Palengke" component={Palengke} />
-                    <Route path="/home/Grocery" component={Grocery} />
-                    <Route path="/home/Errands" component={Errands} />
-                    <Route path="/home/Partner Stores" component={Partner_Stores} />
-                    <Route path="/home/Products" component={ProductsTab} />
-
-                    <Route path="/home/GroceryItems" component={GroceryItems} />
-                    <Route path="/home/PalengkeItems" component={PalengkeItems} />
-                </Switch> */}
       </main>
     </div>
   );
