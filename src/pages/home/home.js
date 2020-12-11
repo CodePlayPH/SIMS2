@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Drawer from '../../components/drawer';
+import MainDrawer from '../../components/drawer';
 import { headers } from '../../utils/utils'
 import Categories from '../categories/Categories'
 import Dashboard from '../dashboard/Dashboard';
@@ -27,17 +27,14 @@ function Home(props) {
         )
     } else {
         return (
-            <Drawer pathName={pathname} >
+            <MainDrawer pathName={pathname} >
                 <Switch>
                     <Route path="/home" exact component={Dashboard} />
                     <Route path="/home/Categories" component={Categories} />
-                    {/* <Route path="/home/Sizes" component={Sizes} /> */}
-                    {/* <Route path="/home/Products" component={Products} /> */}
                     <Route path="/home/Entries" component={NewEntry} />
-                    {/* <Route path="/home/Reports" component={Reports} /> */}
-                    {/* <Route path="/home/Grocery" component={Grocery} /> */}
+                    <Route path="/home/Products" component={Products} />
                 </Switch>
-            </Drawer>
+            </MainDrawer>
 
         )
     }

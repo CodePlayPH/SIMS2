@@ -71,7 +71,7 @@ function MainDrawer(props) {
       <div className={classes.toolbar} />
       {/* <Divider /> */}
       <List>
-        {["Dashboard", "Categories", "Products", "Entries", "Reports"].map(
+        {["Dashboard", "Categories", "Products", "Entries"].map(
           (text, index) => (
             <ListItem
               button
