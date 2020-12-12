@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react'
-import { FetchProducts } from '../api/products';
+import React, { createContext, useState } from 'react';
+import { AddProducts, FetchProducts } from '../api/products';
 
 export const ProductContext = createContext();
 
@@ -16,14 +16,27 @@ const ProductContextProvider = (props) => {
         }
     }
 
+    const addProduct = async(data) => {
+        // setProductsLoading(true)
+        let res = await AddProducts(data);
+        // setProductsLoading(false)
+        if (res != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     return (
         <ProductContext.Provider value={{
-            products, productsLoading, fetchProducts
-
+            products, productsLoading, fetchProducts, addProduct
         }}>
             {props.children}
-        </ProductContext.Provider >
+
+        </ProductContext.Provider>
     )
 }
 
-export default ProductContextProvider
+
+export default ProductContextProvider;

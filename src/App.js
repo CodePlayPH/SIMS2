@@ -7,8 +7,6 @@ import Home from './pages/home/home';
 import Contexts from './contexts/Contexts';
 
 
-import { headers } from './utils/utils';
-
 function App() {
   window.$name = 'tester'
   return (

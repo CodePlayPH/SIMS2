@@ -26,3 +26,25 @@ export async function FetchProducts() {
 }
 
 
+export async function AddProducts(data) {
+    try {
+        let response = await Axios
+        .post(
+            Constants.BASE_URL + "/products/add_product.php", {
+                product_name: data.product_name,
+                product_price: data.product_price,
+                size_id: data.size_id,
+                category_id: data.category_id
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+
+            return response.data
+
+    } catch (error) {
+        return error.response.data
+    }
+}

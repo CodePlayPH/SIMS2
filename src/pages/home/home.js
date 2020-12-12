@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MainDrawer from '../../components/drawer';
 import { headers } from '../../utils/utils'
 import Categories from '../categories/Categories'
@@ -8,6 +8,8 @@ import Products from '../products/Products'
 // import Reports from '../reports/Reports'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import { CategoryContext } from "../../contexts/CategoryContext";
+import { ProductContext } from '../../contexts/ProductContext'
+import { SizeContext } from '../../contexts/SizeCotext'
 
 
 
@@ -18,6 +20,16 @@ function Home(props) {
     var prevData;
 
     const { isLogin, setLogin } = useState(false)
+
+    const { fetchCategories } = useContext(CategoryContext)
+    const { fetchSizes } = useContext(SizeContext)
+    const { fetchProducts } = useContext(ProductContext)
+
+    useEffect(() => {
+        Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
+            fetchProducts()
+        });
+    }, [])
     
     if (!localStorage.getItem('userData')) {
         return (
