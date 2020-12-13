@@ -24,10 +24,10 @@ function Products(props) {
 
   const handleAddNow = async (event) => {
     event.preventDefault();
-    setProduct_name(columns.name);
-    setProduct_price(columns.price);
-    setSize_id(columns.size);
-    setCategory_id(columns.category);
+    // setProduct_name(columns.name);
+    // setProduct_price(columns.price);
+    // setSize_id(columns.size);
+    // setCategory_id(columns.category);
 
     await addProduct({ product_name, product_price, size_id, category_id });
   };
@@ -64,16 +64,6 @@ function Products(props) {
         onRowAdd: (newData) =>
         
           new Promise(async (resolve, reject) => {
-           
-
-            console.log("New data: " + columns.name + "; " + columns.price);
-
-            // await addProduct({
-            //   product_name,
-            //   product_price,
-            //   size_id,
-            //   category_id,
-            // });
             reject();
           }),
         onRowUpdate: (newData, oldData) =>

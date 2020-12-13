@@ -13,7 +13,9 @@ export async function FetchProducts() {
 
         console.log(res)
         if (!res.data['error']) {
+            
             return res.data['data'];
+            
         } else {
             return null;
         }
@@ -28,19 +30,18 @@ export async function FetchProducts() {
 
 export async function AddProducts(data) {
     try {
-        let response = await Axios
-        .post(
-                Constants.BASE_URL + "/products/add_product.php", {
-                product_name: data.product_name,
-                product_price: data.product_price,
-                size_id: data.size_id,
-                category_id: data.category_id
+        var response = await Axios({
+            method: 'post',
+            url: Constants.BASE_URL + "/products/add_product.php", 
+            data: {
+                product_name: data['product_name'],
+                product_price: data['product_price'],
+                size_id: data['size_id'],
+                category_id: data['category_id']
             },
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            })
+            headers: headers()
+        })
+            console.log(data)
 
             return response.data
 

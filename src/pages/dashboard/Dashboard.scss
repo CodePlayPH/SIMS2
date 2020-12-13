@@ -1,0 +1,27 @@
+.Main-Container {
+  .top-section {
+    .row {
+      .col {
+        .card {
+          -webkit-box-shadow: 5px 6px 10px -4px rgba(0, 0, 0, 0.52);
+          box-shadow: 5px 6px 10px -4px rgba(0, 0, 0, 0.52);
+          .card-body {
+            .card-logo {
+                .MuiSvgIcon-root {
+                    font-size: 32px;
+                }
+            }
+            h5 {
+              font-size: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .graph-section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+  }
+}
