@@ -30,7 +30,7 @@ export async function AddProducts(data) {
     try {
         let response = await Axios
         .post(
-            Constants.BASE_URL + "/products/add_product.php", {
+                Constants.BASE_URL + "/products/add_product.php", {
                 product_name: data.product_name,
                 product_price: data.product_price,
                 size_id: data.size_id,
