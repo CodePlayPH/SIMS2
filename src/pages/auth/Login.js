@@ -139,7 +139,7 @@ function Login() {
               autoFocus
               id={loginStat ? "outlined-error-helper-text" : ""}
               onChange={(val) => setCode(val.target.value)}
-              helperText={loginStat ? "Login Failed" : ""}
+              // helperText={loginStat ? "Login Failed" : ""}
               value={code}
             />
             <Button
