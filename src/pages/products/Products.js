@@ -13,23 +13,24 @@ function Products(props) {
   const { sizes } = useContext(SizeContext);
   const { categories } = useContext(CategoryContext);
 
+  const { addProduct } = useContext(ProductContext);
   const [product_name, setProduct_name] = useState("");
   const [product_price, setProduct_price] = useState("");
-  const [size_id, setSize_id] = useState("");
+  const [product_size, setProduct_size] = useState("");
   const [category_id, setCategory_id] = useState("");
-  const { addProduct } = useContext(ProductContext);
+  
 
   const sizeLookup = {};
   const categoryLookup = {};
 
   const handleAddNow = async (event) => {
-    event.preventDefault();
-    // setProduct_name(columns.name);
-    // setProduct_price(columns.price);
-    // setSize_id(columns.size);
-    // setCategory_id(columns.category);
-
-    await addProduct({ product_name, product_price, size_id, category_id });
+    var response = await addProduct({ product_name, product_price, product_size, category_id });
+    if (response) {
+      alert("Success")
+    }else {
+      alert("Error")
+    }
+    
   };
 
   useEffect(() => {
@@ -59,11 +60,15 @@ function Products(props) {
       title="Products"
       columns={columns}
       data={products}
-      
-      editable={{        
+      editable={{
         onRowAdd: (newData) =>
-        
           new Promise(async (resolve, reject) => {
+            setProduct_name(newData.name);
+            setProduct_price(newData.price);
+            setProduct_size(newData.siz);
+            setCategory_id(newData.category);
+
+            handleAddNow();
             reject();
           }),
         onRowUpdate: (newData, oldData) =>
