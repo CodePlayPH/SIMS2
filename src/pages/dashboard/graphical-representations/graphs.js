@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './graphs.scss';
 
 import { Bar, Line  } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
@@ -60,7 +61,7 @@ export function BarGraphs() {
 
   return (
     <>
-      <MDBContainer>
+      <MDBContainer className="mainBar-container">
         <h3 className="mt-5">Top Selling of Yesterday</h3>
         <Bar data={barGraphData} options={barChartOptions} />
       </MDBContainer>

@@ -1,4 +1,5 @@
 .Main-Container {
+  padding-top: 2rem;
   .top-section {
     .row {
       .col {
@@ -7,9 +8,9 @@
           box-shadow: 5px 6px 10px -4px rgba(0, 0, 0, 0.52);
           .card-body {
             .card-logo {
-                .MuiSvgIcon-root {
-                    font-size: 32px;
-                }
+              .MuiSvgIcon-root {
+                font-size: 32px;
+              }
             }
             h5 {
               font-size: 32px;
@@ -21,7 +22,10 @@
   }
 
   .graph-section {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    -webkit-box-shadow: 5px 0px 15px -4px rgba(0, 0, 0, 0.65);
+    box-shadow: 5px 0px 15px -4px rgba(0, 0, 0, 0.65);
   }
 }

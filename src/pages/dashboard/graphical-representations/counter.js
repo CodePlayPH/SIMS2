@@ -35,16 +35,6 @@ function Counter() {
     },
   ]);
 
-  const [barData, setBarData] = [
-    { prod: "1950", sales: 2.525 },
-    { prod: "1960", sales: 3.018 },
-    { prod: "1970", sales: 3.682 },
-    { prod: "1980", sales: 4.44 },
-    { prod: "1990", sales: 5.31 },
-    { prod: "2000", sales: 6.127 },
-    { prod: "2010", sales: 6.93 },
-  ];
-
   return (
     <>
       <div className="row">

@@ -1,0 +1,23 @@
+@import '../../../utils/breakpoint';
+// Breakpoints Guidlines ***********
+// "phone": 360px,
+// "tablet": 768px,
+// "desktop": 1366px,
+// "LGdesktop": 1920px
+// Breakpoints Guidlines ***********
+
+// Bar Graph
+.mainBar-container {
+    @include media(">desktop", "<=LGdesktop") {
+        height: 328px !important;
+    }
+    
+    h3 {}
+
+    .chartjs-render-monitor {
+        @include media(">desktop", "<=LGdesktop") {
+            height: 285px !important;
+        }
+        
+    }
+}
