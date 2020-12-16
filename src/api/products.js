@@ -27,22 +27,25 @@ export async function FetchProducts() {
 
 export async function AddProducts(data) {
   try {
-      var response = await Axios({
-          method: 'post',
-          url: Constants.BASE_URL + "/products/add_product.php",
-          data: {
-              product_name: data['product_name'],
-              product_price: data['product_price'],
-              size_id: data['size_id'],
-              category_id: data['category_id']
-          },
-          headers: headers()
-      })
-          console.log(data)
+    var response = await Axios({
+      method: "post",
+      headers: headers(),
+      url: Constants.BASE_URL + "/products/add_product.php",
+      data: {
+        product_name: data["product_name"],
+        product_price: data["product_price"],
+        size_id: data["size_id"],
+        category_id: data["category_id"],
+      },
 
-          return response.data
+      
+      validateStatus: () => true,
+    });
+    console.log("API: " + response.data);
 
+    return response.data;
   } catch (error) {
-      return error.response.data
+    console.log("API Error: " + error.response.data);
+    return error.response.data;
   }
 }
