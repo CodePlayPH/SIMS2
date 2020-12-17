@@ -2,6 +2,8 @@ import Axios from "axios";
 import * as Constants from "../utils/constants";
 import { headers } from "../utils/utils";
 
+
+
 export async function FetchProducts() {
   try {
     var res = await Axios({
@@ -27,25 +29,25 @@ export async function FetchProducts() {
 
 export async function AddProducts(data) {
   try {
-    var response = await Axios({
-      method: "post",
-      headers: headers(),
-      url: Constants.BASE_URL + "/products/add_product.php",
-      data: {
-        product_name: data["product_name"],
-        product_price: data["product_price"],
-        size_id: data["size_id"],
-        category_id: data["category_id"],
-      },
+      var response = await Axios({
+        method: "post",
+        headers: headers(),
+        url: Constants.BASE_URL + "/products/add_product.php",
+        data: {
+          product_name: data.name,
+          product_price: data.price,
+          size_id: data.size,
+          category_id: data.category,
+        },
 
-      
-      validateStatus: () => true,
-    });
-    console.log("API: " + response.data);
+        validateStatus: () => true
+      });
+      console.log("API product.js: " + response.data);
 
-    return response.data;
+      return response.data;
+
   } catch (error) {
-    console.log("API Error: " + error.response.data);
-    return error.response.data;
+    console.log("API error: " + response.data);
+    return error.response.data
   }
 }
