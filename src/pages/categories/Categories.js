@@ -63,7 +63,7 @@ function Categories() {
             startIcon={<PostAddIcon />}
             onClick={handleOpen}
           >
-            New Product
+            New Sizing
           </Button>
         </div>
       </div>
