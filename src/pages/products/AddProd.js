@@ -56,12 +56,19 @@ function AddProd() {
 
    const handleAddNow = async (event) => {
      event.preventDefault();
-    await addProduct({
+    let status = await addProduct({
       product_name: productName,
       product_price: productPrice,
       size_id: productSize,
       category_id: productCategory,
     });
+
+    if (status != false) {
+        alert(status.error)
+    } else {
+    
+    }
+
     
   };
 
