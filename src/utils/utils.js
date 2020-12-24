@@ -37,7 +37,7 @@ export const tableIcons = {
 
 export function headers() {
     var localData = JSON.parse(localStorage.getItem('userData'));
-    var token = localData['jwt'];
+    var token = localData['jwt'];   
     console.log("gikan kay utils.js: "+token)
     let axiosConfig = {
         'Content-Type': 'application/json;charset=UTF-8',

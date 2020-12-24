@@ -17,7 +17,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import { ProductContext } from "../../contexts/ProductContext";
 
-function Categories() {
+function AddProd() {
   const classes = useStyles();
   const { sizes } = useContext(SizeContext);
   const { categories } = useContext(CategoryContext);
@@ -32,29 +32,38 @@ function Categories() {
   const [productCategory, setProductCategory] = useState("");
   const [productSize, setProductSize] = useState("");
   const [productPrice, setProductPrice] = useState("");
-  const [categoryOpt, setCategoryOpt] = useState([{ lookup: categoryLookup }]);
+  // const [categoryOpt, setCategoryOpt] = useState("");
 
-  // const handleProductNameChange = (event) => {
-  //   setProductName(event.target.value);
-  //   console.log(event.target.value);
-  // };
+  const handleProductNameChange = (event) => {
+    setProductName(event.target.value);
+    console.log(event.target.value);
+  };
 
-  // const handleProductCategoryChange = (event) => {
-  //   setProductCategory(event.target.value);
-  //   console.log(event.target.value);
-  // };
+  const handleProductCategoryChange = (event) => {
+    setProductCategory(event.target.value);
+    console.log(event.target.value);
+  };
 
-  // const handleProductSizeChange = (event) => {
-  //   setProductSize(event.target.value);
-  //   console.log(event.target.value);
-  // };
+  const handleProductSizeChange = (event) => {
+    setProductSize(event.target.value);
+    console.log(event.target.value);
+  };
 
-  // const handleProductPriceChange = (event) => {
-  //   setProductPrice(event.target.value);
-  //   console.log(event.target.value);
-  // };
+  const handleProductPriceChange = (event) => {
+    setProductPrice(event.target.value);
+    console.log(event.target.value);
+  };
 
- 
+   const handleAddNow = async (event) => {
+     event.preventDefault();
+    await addProduct({
+      product_name: productName,
+      product_price: productPrice,
+      size_id: productSize,
+      category_id: productCategory,
+    });
+    
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -75,7 +84,7 @@ function Categories() {
         startIcon={<PostAddIcon />}
         onClick={handleOpen}
       >
-        New Category
+        New Product
       </Button>
 
       <Modal
@@ -99,8 +108,8 @@ function Categories() {
                 id="filled-basic"
                 label="Product Name"
                 variant="filled"
-                // value={productName}
-                // onChange={handleProductNameChange}
+                value={productName}
+                onChange={handleProductNameChange}
               />
               <FormControl variant="filled" className={classes.formControl}>
                 <InputLabel id="demo-simple-select-filled-label">
@@ -109,17 +118,17 @@ function Categories() {
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
-                  // value={productCategory}
-                  // onChange={handleProductCategoryChange}
+                  value={productCategory}
+                  onChange={handleProductCategoryChange}
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {/* {categories.map((category) => (
+                  {categories.map((category) => (
                     <MenuItem value={category.id}>
                       <em>{category.name}</em>
                     </MenuItem>
-                  ))} */}
+                  ))}
                 </Select>
               </FormControl>
 
@@ -130,17 +139,17 @@ function Categories() {
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
-                  // value={productSize}
-                  // onChange={handleProductSizeChange}
+                  value={productSize}
+                  onChange={handleProductSizeChange}
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {/* {sizes.map((size) => (
+                  {sizes.map((size) => (
                     <MenuItem value={size.id}>
                       <em>{size.name}</em>
                     </MenuItem>
-                  ))} */}
+                  ))}
                 </Select>
               </FormControl>
 
@@ -149,8 +158,8 @@ function Categories() {
                 id="filled-basic"
                 label=""
                 variant="filled"
-                // value={productPrice}
-                // onChange={handleProductPriceChange}
+                value={productPrice}
+                onChange={handleProductPriceChange}
               />
             </form>
             <div className="container">
@@ -159,7 +168,7 @@ function Categories() {
                   <Button variant="outlined">Default</Button>
                 </div>
                 <div className="col-md-auto">
-                  <Button variant="contained" color="primary" >
+                  <Button variant="contained" color="primary" onClick={handleAddNow} >
                     Add Product
                   </Button>
                 </div>
@@ -209,4 +218,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default Categories;
+export default AddProd;

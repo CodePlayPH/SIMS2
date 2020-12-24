@@ -61,10 +61,6 @@ function Login() {
   const [loginStat, setLoginStat] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-
-  
-
-
   const { loginUser, setUserData } = useContext(AuthContext);
 
   function Alert(props) {
@@ -99,8 +95,6 @@ function Login() {
 
     setOpen(false);
   };
-
-
 
   useEffect(() => {
     if (code == "") setLoginStat(false);
@@ -139,7 +133,6 @@ function Login() {
               autoFocus
               id={loginStat ? "outlined-error-helper-text" : ""}
               onChange={(val) => setCode(val.target.value)}
-              // helperText={loginStat ? "Login Failed" : ""}
               value={code}
             />
             <Button

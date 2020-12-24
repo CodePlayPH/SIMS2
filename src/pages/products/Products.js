@@ -9,54 +9,26 @@ import { CategoryContext } from "../../contexts/CategoryContext";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SizeContext } from "../../contexts/SizeCotext";
 import Categories from "../categories/Categories";
+import AddProd from "./AddProd";
 
 function Products(props) {
   const { products, productsLoading } = useContext(ProductContext);
   const { sizes } = useContext(SizeContext);
   const { categories } = useContext(CategoryContext);
 
-  const { addProduct } = useContext(ProductContext);
-  const [product_name, setProduct_name] = useState("");
-  const [product_price, setProduct_price] = useState("");
-  const [product_size, setProduct_size] = useState("");
-  const [category_id, setCategory_id] = useState("");
-
   const sizeLookup = {};
   const categoryLookup = {};
 
-  const handleAddNow = async (event) => {
-    await addProduct({
-      product_name: product_name,
-      product_price: product_price,
-      product_size: product_size,
-      category_id: category_id,
-    });
-    // if (response) {
-    //   alert("Success")
-    // }else {
-    //   alert("Error")
-    // }
-    console.log(
-      "Gikan sa Product.js gikuha ang mga data: " +
-        product_name +
-        " " +
-        product_price +
-        " " +
-        product_size +
-        " " +
-        category_id
-    );
-  };
+      useEffect(() => {
+        sizes.map(size => {
+            sizeLookup[size.id] = size.name
+        })
 
-  useEffect(() => {
-    sizes.map((size) => {
-      sizeLookup[size.id] = size.name;
-    });
+        categories.map(category => {
+            categoryLookup[category.id] = category.name
+        })
 
-    categories.map((category) => {
-      categoryLookup[category.id] = category.name;
-    });
-  }, []);
+    }, [])
 
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
@@ -69,8 +41,21 @@ function Products(props) {
 
   return (
     <>
-      <div>
-        <Categories />
+      <div className="container">
+        <div class="row ">
+          <div class="col-md-auto">
+            {" "}
+            <AddProd />
+          </div>
+          <div class="col-md-auto">
+            {" "}
+            <Categories />
+          </div>
+          <div class="col-md-auto">
+            {" "}
+            <Categories />
+          </div>
+        </div>
       </div>
 
       <MaterialTable
@@ -82,13 +67,6 @@ function Products(props) {
         data={products}
         editable={{
           // onRowAdd: (newData) =>
-          //   new Promise(async (resolve, reject) => {
-          //     setProduct_name(newData.name);
-          //     setProduct_price(newData.price);
-          //     setProduct_size(newData.size);
-          //     setCategory_id(newData.category);
-
-          //     handleAddNow();
           //     reject();
           //   }),
           onRowUpdate: (newData, oldData) =>
@@ -98,11 +76,12 @@ function Products(props) {
             }),
           onRowDelete: (oldData) =>
             new Promise(async (resolve, reject) => {
+              
+              
               reject();
             }),
         }}
       />
-      
     </>
   );
 }
