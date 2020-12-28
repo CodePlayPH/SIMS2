@@ -13,27 +13,8 @@ function Categories() {
   const classes = useStyles();
   const { sizes } = useContext(SizeContext);
   const { categories, categoryLoading } = useContext(CategoryContext);
-  const { addProduct } = useContext(ProductContext);
-
-  const sizeLookup = {};
+  const { addCategories } = useContext(CategoryContext);
   const categoryLookup = {};
-
-  const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState("");
-  const [productName, setProductName] = useState("");
-  const [productCategory, setProductCategory] = useState("");
-  const [productSize, setProductSize] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [categoryOpt, setCategoryOpt] = useState([{ lookup: categoryLookup }]);
- 
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
@@ -69,21 +50,21 @@ function Categories() {
         columns={columns}
         data={categories}
         editable={{
-          // onRowAdd: (newData) =>
-          //   new Promise(async (resolve, reject) => {
+          onRowAdd: (newData) =>
+            new Promise(async (resolve, reject) => {
             
-          //     let status = await addProduct({
-          //       product_name: newData.name,
-          //       product_price: newData.price,
-          //       size_id: newData.size,
-          //       category_id: newData.category,
-          //     });
+              let status = await addCategories({
+                name: newData.name,
+              });
 
-          //     if (status != false) {
-          //       alert(status);
-          //     } else {
-          //     }
-          //   }),
+              if (status != false) {
+               
+              } else {
+                alert(status.error);
+              }
+              
+
+            }),
 
           onRowUpdate: (newData, oldData) =>
             new Promise(async (resolve, reject) => {

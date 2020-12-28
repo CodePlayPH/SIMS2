@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-// import { CategoryContext } from '../contexts/';
 import { FetchCategories, AddCategory, UpdateCategory } from '../api/categories';
 
 export const CategoryContext = createContext();
