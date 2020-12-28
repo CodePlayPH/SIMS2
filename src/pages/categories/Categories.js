@@ -13,8 +13,10 @@ function Categories() {
   const classes = useStyles();
   const { sizes } = useContext(SizeContext);
   const { categories, categoryLoading } = useContext(CategoryContext);
-  const { addCategories } = useContext(CategoryContext);
+  const { addCategories, updateCategory } = useContext(CategoryContext);
   const categoryLookup = {};
+
+  const [category, setCategory] = useState(CategoryContext);
 
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
@@ -68,8 +70,19 @@ function Categories() {
 
           onRowUpdate: (newData, oldData) =>
             new Promise(async (resolve, reject) => {
-              reject();
-              // handleAddNow.bind(this)
+              setTimeout(() => {
+                const dataUpdate = [...categories];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData.name;
+                setColumns([...dataUpdate]);
+
+                resolve();
+            }, 1000);
+
+            await updateCategory({
+              category_name: newData.name
+            })
+
             }),
           onRowDelete: (oldData) =>
             new Promise(async (resolve, reject) => {
