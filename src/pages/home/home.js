@@ -10,6 +10,8 @@ import { Route, Switch, useHistory } from 'react-router-dom'
 import { CategoryContext } from "../../contexts/CategoryContext";
 import { ProductContext } from '../../contexts/ProductContext'
 import { SizeContext } from '../../contexts/SizeCotext'
+import Register from '../auth/Register';
+
 
 
 
@@ -39,15 +41,20 @@ function Home(props) {
         )
     } else {
         return (
+            <div>
             <MainDrawer pathName={pathname} >
                 <Switch>
                     <Route path="/home" exact component={Dashboard} />
                     <Route path="/home/Categories" component={Categories} />
                     <Route path="/home/Entries" component={NewEntry} />
                     <Route path="/home/Products" component={Products} />
+                    
+                    
                 </Switch>
             </MainDrawer>
 
+            <Route path="/Register" component={Register} />
+            </div>
         )
     }
 }

@@ -15,9 +15,12 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { Route, Switch, useHistory } from 'react-router-dom'
 
 import FishPic from "../../resources/images/login_fish.svg";
-import { useHistory } from "react-router-dom";
+import Register from "./Register";
+// import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,6 +112,7 @@ function Login() {
   return (
     <Grid container component="main" className={classes.root}>
       
+
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -135,6 +139,7 @@ function Login() {
               onChange={(val) => setCode(val.target.value)}
               value={code}
             />
+            
             <Button
               type="submit"
               fullWidth
@@ -151,7 +156,7 @@ function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/access_register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
