@@ -35,7 +35,7 @@ function Products(props) {
     categories.map((category) => {
       categoryLookup[category.id] = category.name;
     });
-  }, []);
+  }, {});
 
   const handleAddNow = async (event) => {
     //   event.preventDefault();
@@ -66,46 +66,54 @@ function Products(props) {
 
   return (
     <>
-      <div className="addProd-container">
+      {/* <div className="addProd-container">
         <div class="row ">
-        <div class="col">
+        <div class="col"> */}
             {" "}
             {/* <AddProd /> */}
-          </div>
-          <div class="col">
+          {/* </div>
+          <div class="col"> */}
             {" "}
             {/* <AddProd /> */}
-          </div>
-          <div class="col">
+          {/* </div>
+          <div class="col"> */}
             {" "}
-            <AddProd />
+            {/* <AddProd />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <MaterialTable
         isLoading={productsLoading}
         icons={tableIcons}
         options={tablePageSizeoptions}
-        title="Products"
+        title="Available Products"
         columns={columns}
         data={products}
         editable={{
-          // onRowAdd: (newData) =>
-          //   new Promise(async (resolve, reject) => {
+          onRowAdd: (newData) =>
+            new Promise(async (resolve, reject) => {
             
-          //     let status = await addProduct({
-          //       product_name: newData.name,
-          //       product_price: newData.price,
-          //       size_id: newData.size,
-          //       category_id: newData.category,
-          //     });
+              let status = await addProduct({
+                product_name: newData.name,
+                product_price: newData.price,
+                size_id: newData.size,
+                category_id: newData.category,
+                // name: newData.name,
+                // price: newData.price,
+                // size: newData.size,
+                // category: newData.category,
+              });
 
-          //     if (status != false) {
-          //       alert(status);
-          //     } else {
-          //     }
-          //   }),
+              if (status !== false) {
+               
+              } else {
+                alert(status.error);
+              }
+              
+              resolve();
+
+            }),
 
           onRowUpdate: (newData, oldData) =>
             new Promise(async (resolve, reject) => {

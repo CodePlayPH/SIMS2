@@ -120,7 +120,7 @@ function MainDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            Sales Inventory Monitoring System
           </Typography>
           <Button
             variant="contained"
