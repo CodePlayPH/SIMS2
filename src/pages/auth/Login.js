@@ -127,7 +127,7 @@ function Login() {
             <TextField
               variant="outlined"
               margin="normal"
-              required
+              required={true}
               fullWidth
               type="password"
               id="code"

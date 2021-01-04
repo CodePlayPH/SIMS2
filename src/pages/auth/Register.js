@@ -13,23 +13,52 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import { useHistory } from 'react-router-dom'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { AuthContext } from "../../contexts/AuthContext";
 
 
 
 function Register() {
   const classes = useStyles();
+  var history = useHistory();
+
+   const { registerUser } = useContext(AuthContext)
 
   const [fullname, setFullname] = useState("");
   const [accountType, setAccountType] = useState("");
   const [position, setPosition] = useState("");
   const [Dept, setDept] = useState("");
 
+  async function handleRegister(event) {
+    event.preventDefault();
+    var stat = await registerUser({
+      full_name: fullname ,
+      position: position,
+      access_type: accountType
+    });
+
+    if (stat) {
+      history.replace("/");
+    }else {
+      alert("Error: " + stat.error)
+    }
+  }
+
+  const [ accountTypeState, setAccountTypeState ] = useState([
+    {
+      value: "admin",
+      label: "Admin"
+    },
+    {
+      value: "staff",
+      label: "Staff"
+    }
+  ])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -39,28 +68,32 @@ function Register() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Register for an Account
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleRegister}>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
-                required
+                required={true}
+                // helperText="This is required"
+                
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label={"First Name"}
                 value={fullname}
                 onChange={(val) => setFullname(val.target.value)}
                 autoFocus
               />
             </Grid>
             <FormControl variant="outlined" className={classes.formControl}>
+             
               <InputLabel htmlFor="outlined-age-native-simple">Account Type to register</InputLabel>
               <Select
                 native
+                required
                 value={accountType}
                 label="Account Type to register"
                 inputProps={{
@@ -71,41 +104,28 @@ function Register() {
                 onChange={(val) => setAccountType(val.target.value)}
               >
                 <option aria-label="None" value="" />
-                <option value={1}>Admin</option>
-                <option value={2}>Staff</option>
+                {
+                  accountTypeState.map(accType => (
+                    <option value={accType.value}>{accType.label}</option>
+                  )) 
+                }
               </Select>
             </FormControl>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-age-native-simple">Department Under</InputLabel>
-              <Select
-                native
-                value={Dept}
-                label="Age"
-                inputProps={{
-                  name: "age",
-                  id: "outlined-age-native-simple",
-                }}
-
-                onChange={(val) => setDept(val.target.value)}
-              >
-                <option aria-label="None" value="" />
-                <option value={"Admin"}>Admin</option>
-                <option value={"Accounting"}>Accounting</option>
-                <option value={"Culinary"}>Culinary</option>
-                <option value={"Utility"}>Utility</option>
-                
-              </Select>
-            </FormControl>
+            
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
+                className={classes.formControl}
+                // helperText="This is required"
+                required={true}
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
+                name="position"
+                label="Position"
+                type="text"
+                id="position"
                 autoComplete="current-password"
+                onChange={(val) => setPosition(val.target.value)}
+                value={position}
               />
             </Grid>
           </Grid>
@@ -115,6 +135,7 @@ function Register() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleRegister}
           >
             Sign Up
           </Button>
@@ -152,6 +173,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(0.4),
     minWidth: "98%",
+    marginTop: "12px"
     
   },
   selectEmpty: {

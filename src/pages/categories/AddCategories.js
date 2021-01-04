@@ -34,28 +34,6 @@ function AddCategories() {
   const [productPrice, setProductPrice] = useState("");
   const [categoryOpt, setCategoryOpt] = useState([{ lookup: categoryLookup }]);
 
-  // const handleProductNameChange = (event) => {
-  //   setProductName(event.target.value);
-  //   console.log(event.target.value);
-  // };
-
-  // const handleProductCategoryChange = (event) => {
-  //   setProductCategory(event.target.value);
-  //   console.log(event.target.value);
-  // };
-
-  // const handleProductSizeChange = (event) => {
-  //   setProductSize(event.target.value);
-  //   console.log(event.target.value);
-  // };
-
-  // const handleProductPriceChange = (event) => {
-  //   setProductPrice(event.target.value);
-  //   console.log(event.target.value);
-  // };
-
- 
-
   const handleOpen = () => {
     setOpen(true);
   };

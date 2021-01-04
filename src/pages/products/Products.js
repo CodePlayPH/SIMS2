@@ -37,24 +37,6 @@ function Products(props) {
     });
   }, {});
 
-  const handleAddNow = async (event) => {
-    //   event.preventDefault();
-    //  let status = await addProduct({
-    //    product_name: productName,
-    //    product_price: productPrice,
-    //    size_id: productSize,
-    //    category_id: productCategory,
-    //  });
-
-    //  if (status != false) {
-    //      alert(status.error)
-    //  } else {
-
-    //  }
-
-    alert(productName);
-  };
-
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
     { title: "Product Name", field: "name" },
@@ -65,24 +47,6 @@ function Products(props) {
   ]);
 
   return (
-    <>
-      {/* <div className="addProd-container">
-        <div class="row ">
-        <div class="col"> */}
-            {" "}
-            {/* <AddProd /> */}
-          {/* </div>
-          <div class="col"> */}
-            {" "}
-            {/* <AddProd /> */}
-          {/* </div>
-          <div class="col"> */}
-            {" "}
-            {/* <AddProd />
-          </div>
-        </div>
-      </div> */}
-
       <MaterialTable
         isLoading={productsLoading}
         icons={tableIcons}
@@ -99,10 +63,6 @@ function Products(props) {
                 product_price: newData.price,
                 size_id: newData.size,
                 category_id: newData.category,
-                // name: newData.name,
-                // price: newData.price,
-                // size: newData.size,
-                // category: newData.category,
               });
 
               if (status !== false) {
@@ -126,7 +86,6 @@ function Products(props) {
             }),
         }}
       />
-    </>
   );
 }
 

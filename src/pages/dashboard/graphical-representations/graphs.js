@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './graphs.scss';
 
 import { Bar, Line  } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 
+import { ProductContext } from "../../../contexts/ProductContext";
+
+
+
 export function BarGraphs() {
+  const { fetchProducts } = useContext(ProductContext);
+  const { products, productsLoading } = useContext(ProductContext);
+
+  const prodLookup = {};
+
+  useEffect(() => {
+    products.map((product) => {
+      prodLookup[product.id] = product.name
+    })
+  }, )
+
   const [barGraphData, setBarGraphData] = useState({
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: [
+      prodLookup
+    ],
     datasets: [
       {
         label: "% of Votes",
