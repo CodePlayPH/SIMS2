@@ -40,9 +40,9 @@ function Products(props) {
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
     { title: "Product Name", field: "name" },
-    { title: "Size", field: "size", lookup: sizeLookup },
+    { title: "Size", field: "size", lookup: sizeLookup, editable: "never" },
     { title: "Category", field: "category", lookup: categoryLookup },
-    { title: "Price", field: "price" },
+    { title: "Price", field: "price", type: 'numeric' },
     { title: "Date Created", field: "created_at", editable: "never" },
   ]);
 
@@ -51,7 +51,7 @@ function Products(props) {
         isLoading={productsLoading}
         icons={tableIcons}
         options={tablePageSizeoptions}
-        title="Available Products"
+        title="Products on Menu"
         columns={columns}
         data={products}
         editable={{
@@ -80,10 +80,10 @@ function Products(props) {
               reject();
               // handleAddNow.bind(this)
             }),
-          onRowDelete: (oldData) =>
-            new Promise(async (resolve, reject) => {
-              reject();
-            }),
+          // onRowDelete: (oldData) =>
+          //   new Promise(async (resolve, reject) => {
+          //     reject();
+          //   }),
         }}
       />
   );
