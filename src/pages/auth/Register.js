@@ -20,7 +20,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { AuthContext } from "../../contexts/AuthContext";
-
+import "./auth.scss"
+import { BorderColor } from "@material-ui/icons";
 
 
 function Register() {
@@ -76,10 +77,10 @@ function Register() {
               <TextField
                 autoComplete="fname"
                 name="firstName"
-                variant="outlined"
+                variant="filled"
                 required={true}
                 // helperText="This is required"
-                
+               
                 fullWidth
                 id="firstName"
                 label={"First Name"}
@@ -88,34 +89,13 @@ function Register() {
                 autoFocus
               />
             </Grid>
-            <FormControl variant="outlined" className={classes.formControl}>
-             
-              <InputLabel htmlFor="outlined-age-native-simple">Account Type to register</InputLabel>
-              <Select
-                native
-                required
-                value={accountType}
-                label="Account Type to register"
-                inputProps={{
-                  name: "accountType",
-                  id: "outlined-age-native-simple",
-                }}
-
-                onChange={(val) => setAccountType(val.target.value)}
-              >
-                <option aria-label="None" value="" />
-                {
-                  accountTypeState.map(accType => (
-                    <option value={accType.value}>{accType.label}</option>
-                  )) 
-                }
-              </Select>
-            </FormControl>
+           
             
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                variant="filled"
                 className={classes.formControl}
+                id="formControl"
                 // helperText="This is required"
                 required={true}
                 fullWidth
@@ -123,16 +103,40 @@ function Register() {
                 label="Position"
                 type="text"
                 id="position"
-                autoComplete="current-password"
                 onChange={(val) => setPosition(val.target.value)}
                 value={position}
               />
             </Grid>
+
+            <FormControl variant="filled" className={classes.formControl}>
+             
+             <InputLabel htmlFor="outlined-age-native-simple">Account Type to register</InputLabel>
+             <Select
+               native
+               required
+               value={accountType}
+               label="Account Type to register"
+               inputProps={{
+                 name: "accountType",
+                 id: "outlined-age-native-simple",
+               }}
+
+               onChange={(val) => setAccountType(val.target.value)}
+             >
+               <option aria-label="None" value="" />
+               {
+                 accountTypeState.map(accType => (
+                   <option value={accType.value}>{accType.label}</option>
+                 )) 
+               }
+             </Select>
+           </FormControl>
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
+            id="btn-submit"
             color="primary"
             className={classes.submit}
             onClick={handleRegister}
@@ -169,12 +173,12 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: "#57B894"
   },
   formControl: {
     margin: theme.spacing(0.4),
     minWidth: "98%",
-    marginTop: "12px"
-    
+    marginTop: "12px",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
