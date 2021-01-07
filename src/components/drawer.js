@@ -17,7 +17,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-
+import './drawer.scss'
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ListIcon from "@material-ui/icons/List";
 import ListAltIcon from "@material-ui/icons/ListAlt";
@@ -26,7 +26,9 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
+
 import { Link, useHistory } from "react-router-dom";
+import { HoverState } from "@devexpress/dx-react-chart";
 
 const drawerWidth = 240;
 
@@ -76,12 +78,13 @@ function MainDrawer(props) {
             <ListItem
               button
               key={text}
+              className="DrawerItems"
               component={Link}
               to={text == "Dashboard" ? `/home` : `/home/${text}`}
               onClick={() => setSelectedTab(index)}
               selected={selectedTab == index}
             >
-              <ListItemIcon>{drawerIcons[index]}</ListItemIcon>
+              <ListItemIcon >{drawerIcons[index]}</ListItemIcon>
               <ListItemText primary={text} />
               {/* <div style={{ display: 'flex', padding: 5, borderRadius: 40, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', width: 20, height: 20 }}><text style={{ color: 'white', fontSize: 10 }}>1</text></div> */}
             </ListItem>
@@ -120,15 +123,18 @@ function MainDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            Sales Inventory Monitoring System
           </Typography>
           <Button
-            variant="contained"
+          className={classes.logoutBtn}
+            variant="outlined"
+            // color="default"
             onClick={() => logOut()}
             endIcon={<ExitToAppIcon />}
           >
             Logout
           </Button>
+          
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -192,6 +198,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
+      backgroundColor: "#57B894"
     },
   },
   menuButton: {
@@ -204,10 +211,15 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+  },
+  logoutBtn: {
+    color: "#ffffff",
+    borderColor: "#ffffff",
   },
 }));
 

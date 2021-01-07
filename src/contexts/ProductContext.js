@@ -17,9 +17,7 @@ const ProductContextProvider = (props) => {
     }
 
     const addProduct = async(data) => {
-        // setProductsLoading(true)
         let res = await AddProducts(data);
-        // setProductsLoading(false)
         if (res != null) {
             return true;
         } else {

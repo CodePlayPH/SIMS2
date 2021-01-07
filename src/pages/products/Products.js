@@ -1,5 +1,6 @@
 import MaterialTable from "material-table";
 import React, { useContext, useEffect, useState } from "react";
+import './AddProd.scss';
 
 import { tableIcons, tablePageSizeoptions } from "../../utils/utils";
 
@@ -7,30 +8,24 @@ import { tableIcons, tablePageSizeoptions } from "../../utils/utils";
 import { CategoryContext } from "../../contexts/CategoryContext";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SizeContext } from "../../contexts/SizeCotext";
+import Categories from "../categories/Categories";
+import AddProd from "./AddProd";
 
 function Products(props) {
   const { products, productsLoading } = useContext(ProductContext);
   const { sizes } = useContext(SizeContext);
   const { categories } = useContext(CategoryContext);
-
-  const [product_name, setProduct_name] = useState("");
-  const [product_price, setProduct_price] = useState("");
-  const [size_id, setSize_id] = useState("");
-  const [category_id, setCategory_id] = useState("");
   const { addProduct } = useContext(ProductContext);
 
   const sizeLookup = {};
   const categoryLookup = {};
 
-  const handleAddNow = async (event) => {
-    event.preventDefault();
-    setProduct_name(columns.name);
-    setProduct_price(columns.price);
-    setSize_id(columns.size);
-    setCategory_id(columns.category);
-
-    await addProduct({ product_name, product_price, size_id, category_id });
-  };
+  const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState("");
+  const [productName, setProductName] = useState("");
+  const [productCategory, setProductCategory] = useState("");
+  const [productSize, setProductSize] = useState("");
+  const [productPrice, setProductPrice] = useState("");
 
   useEffect(() => {
     sizes.map((size) => {
@@ -40,53 +35,57 @@ function Products(props) {
     categories.map((category) => {
       categoryLookup[category.id] = category.name;
     });
-  }, []);
+  }, {});
 
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
     { title: "Product Name", field: "name" },
-    { title: "Size", field: "size", lookup: sizeLookup },
+    { title: "Size", field: "size", lookup: sizeLookup, editable: "never" },
     { title: "Category", field: "category", lookup: categoryLookup },
-    { title: "Price", field: "price" },
+    { title: "Price", field: "price", type: 'numeric' },
     { title: "Date Created", field: "created_at", editable: "never" },
   ]);
 
   return (
-    <MaterialTable
-      isLoading={productsLoading}
-      icons={tableIcons}
-      options={tablePageSizeoptions}
-      title="Products"
-      columns={columns}
-      data={products}
-      
-      editable={{        
-        onRowAdd: (newData) =>
-        
-          new Promise(async (resolve, reject) => {
-           
+      <MaterialTable
+        isLoading={productsLoading}
+        icons={tableIcons}
+        options={tablePageSizeoptions}
+        title="Products on Menu"
+        columns={columns}
+        data={products}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise(async (resolve, reject) => {
+            
+              let status = await addProduct({
+                product_name: newData.name,
+                product_price: newData.price,
+                size_id: newData.size,
+                category_id: newData.category,
+              });
 
-            console.log("New data: " + columns.name + "; " + columns.price);
+              if (status !== false) {
+               
+              } else {
+                alert(status.error);
+              }
+              
+              resolve();
 
-            // await addProduct({
-            //   product_name,
-            //   product_price,
-            //   size_id,
-            //   category_id,
-            // });
-            reject();
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise(async (resolve, reject) => {
-            reject();
-            // handleAddNow.bind(this)
-          }),
-        onRowDelete: (oldData) =>
-          new Promise(async (resolve, reject) => {
-            reject();
-          }),
-      }}
-    />
+            }),
+
+          onRowUpdate: (newData, oldData) =>
+            new Promise(async (resolve, reject) => {
+              reject();
+              // handleAddNow.bind(this)
+            }),
+          // onRowDelete: (oldData) =>
+          //   new Promise(async (resolve, reject) => {
+          //     reject();
+          //   }),
+        }}
+      />
   );
 }
 
