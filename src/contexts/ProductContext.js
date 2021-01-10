@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { AddProducts, FetchProducts } from '../api/products';
+import { AddProducts, FetchProducts, UpdateProduct } from '../api/products';
 
 export const ProductContext = createContext();
 
@@ -25,10 +25,28 @@ const ProductContextProvider = (props) => {
         }
     }
 
+    
+    const updateProduct = async (oldData, newData) => {
+        setProductsLoading(true)
+        let data = await UpdateProduct(newData);
+        setProductsLoading(false)
+        if (data != null) {
+            var prevState = [...products];
+            var index = prevState.indexOf(oldData)
+            prevState[index] = newData
+            setProducts(prevState)
+        } else {
+            console.log(data)
+            alert("naay mali")
+        }
+    }
+
+
+
 
     return (
         <ProductContext.Provider value={{
-            products, productsLoading, fetchProducts, addProduct
+            products, productsLoading, fetchProducts, addProduct, updateProduct
         }}>
             {props.children}
 

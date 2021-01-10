@@ -15,7 +15,7 @@ function Products(props) {
   const { products, productsLoading } = useContext(ProductContext);
   const { sizes } = useContext(SizeContext);
   const { categories } = useContext(CategoryContext);
-  const { addProduct } = useContext(ProductContext);
+  const { addProduct, updateProduct } = useContext(ProductContext);
 
   const sizeLookup = {};
   const categoryLookup = {};
@@ -40,7 +40,7 @@ function Products(props) {
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
     { title: "Product Name", field: "name" },
-    { title: "Size", field: "size", lookup: sizeLookup, editable: "never" },
+    { title: "Size", field: "size", lookup: sizeLookup },
     { title: "Category", field: "category", lookup: categoryLookup },
     { title: "Price", field: "price", type: 'numeric' },
     { title: "Date Created", field: "created_at", editable: "never" },
@@ -76,14 +76,25 @@ function Products(props) {
             }),
 
           onRowUpdate: (newData, oldData) =>
+          
             new Promise(async (resolve, reject) => {
-              reject();
-              // handleAddNow.bind(this)
+              
+              setTimeout(() => {
+                const dataUpdate = [...products];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                resolve();
+
+                 
+              }, 1000);
+              await updateProduct({
+                product_id: newData['id'],
+                product_name: newData['name'],
+                product_price: newData['price'],
+                category_id: newData['category'],
+              })
+              
             }),
-          // onRowDelete: (oldData) =>
-          //   new Promise(async (resolve, reject) => {
-          //     reject();
-          //   }),
         }}
       />
   );

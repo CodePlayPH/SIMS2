@@ -49,6 +49,23 @@ export async function AddProducts(data) {
   }
 }
 
-export async function DeleteProducts(data) {
+export async function UpdateProduct(data) {
+  // /products/update_product.php
+  try {
+    var res = await Axios({
+      method: 'post',
+      headers: headers(),
+      url: Constants.BASE_URL + "/products/update_product.php",
+      validateStatus: () => true,
+      data: {
+        product_id: data['id'],
+        product_name: data['name'],
+        product_price: data['price'],
+        category_id: data['category']
+      }
+    })
+  } catch (error) {
+    
+  }
   
 }
