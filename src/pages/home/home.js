@@ -12,6 +12,7 @@ import { ProductContext } from '../../contexts/ProductContext'
 import { SizeContext } from '../../contexts/SizeCotext'
 import Register from '../auth/Register';
 import Page_not_found from './page_not_found';
+import Sizes from '../sizes/Sizes';
 
 
 
@@ -47,6 +48,7 @@ function Home(props) {
                     <Route path="/home/Categories" component={Categories} />
                     <Route path="/home/Entries" component={NewEntry} />
                     <Route path="/home/Products" component={Products} />
+                    <Route path="/home/Product Sizes" component={Sizes} />
                     
                     
                 </Switch>

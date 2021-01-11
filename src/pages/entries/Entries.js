@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 function NewEntries() {
   const classes = useStyles();
-
   const [Category, setCategory] = React.useState("");
 
   const handleChange = (event) => {
@@ -46,12 +45,12 @@ function NewEntries() {
   const { fetchSizes } = useContext(SizeContext);
   const { fetchProducts } = useContext(ProductContext);
 
-  useEffect(() => {
-    Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
-      fetchProducts();
-      console.log("akoa ning categorisss" + fetchCategories());
-    });
-  }, []);
+  // useEffect(() => {
+  //   Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
+  //     fetchProducts();
+  //     console.log("akoa ning categorisss" + fetchCategories());
+  //   });
+  // }, []);
 
   //table
 
@@ -114,8 +113,32 @@ function NewEntries() {
         </div>
       </div>
 
+      
+
       <div className="row entry-select-input">
         <div className="col-sm"></div>
+        <div className="col-sm">
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              id="demo-simple-select-outlined-label"
+              className="entry-select"
+            >
+              Product Name:{" "}
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={Product}
+              onChange={handleChangeProduct}
+              label="Product Name: "
+            >
+              {products.map((product) => {
+                return <MenuItem value={product.size +" - "+ product.name + " - " + product.category}>{product.size +" - "+ product.name + " - " + product.category}</MenuItem>
+              })}
+              
+            </Select>
+          </FormControl>
+        </div>
         <div className="col-sm">
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel
@@ -132,38 +155,12 @@ function NewEntries() {
               label="Category"
             >
               {categories.map((category) => {
-                categoryLookup[category.id] = category.name;
-                <MenuItem value={category.id}>{categoryLookup}</MenuItem>;
+                return <MenuItem value={category.id}>{category.name}</MenuItem>;
               })}
-
-              {/* <MenuItem value="Frozen Goods2">Frozen Goods2</MenuItem>
-            <MenuItem value="Frozen Goods3">Frozen Goods3</MenuItem>
-            <MenuItem value="Frozen Goods4">Frozen Goods4</MenuItem> */}
             </Select>
           </FormControl>
         </div>
-        <div className="col-sm">
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              id="demo-simple-select-outlined-label"
-              className="entry-select"
-            >
-              Product Name:{" "}
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={Product}
-              onChange={handleChangeProduct}
-              label="Product Name: "
-            >
-              <MenuItem value="Frozen Goods1">Frozen Goods1</MenuItem>
-              <MenuItem value="Frozen Goods2">Frozen Goods2</MenuItem>
-              <MenuItem value="Frozen Goods3">Frozen Goods3</MenuItem>
-              <MenuItem value="Frozen Goods4">Frozen Goods4</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+        
 
         <div className="col-sm">
           <FormControl variant="outlined" className={classes.formControl}>
@@ -171,7 +168,7 @@ function NewEntries() {
               id="demo-simple-select-outlined-label"
               className="entry-select"
             >
-              Category
+              Size
             </InputLabel>
             <Select
               labelId="demo-simple-select-outlined-label"
@@ -187,7 +184,9 @@ function NewEntries() {
             </Select>
           </FormControl>
         </div>
-        <div className="col-sm"></div>
+        <div className="col-sm">
+          QTY Here
+        </div>
       </div>
 
       <div className="row entry-text-area">

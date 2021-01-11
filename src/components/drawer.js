@@ -54,10 +54,13 @@ function MainDrawer(props) {
   useEffect(() => {
     var path = props.pathName.split("/").pop();
     if (path === "") setSelectedTab(0);
-    if (path === "Categories") setSelectedTab(1);
-    if (path === "Products") setSelectedTab(2);
-    if (path === "Entries") setSelectedTab(3);
-    if (path === "Reports") setSelectedTab(4);
+    if (path === "Sizes") setSelectedTab(1);
+    if (path === "Categories") setSelectedTab(2);
+    if (path === "Products") setSelectedTab(3);
+    if (path === "Entries") setSelectedTab(4);
+    if (path === "Reports") setSelectedTab(5);
+    
+    
   }, []);
 
   const drawerIcons = [
@@ -73,7 +76,7 @@ function MainDrawer(props) {
       <div className={classes.toolbar} />
       {/* <Divider /> */}
       <List>
-        {["Dashboard", "Categories", "Products", "Entries"].map(
+        {["Dashboard",  "Product Sizes","Categories", "Products", "Entries"].map(
           (text, index) => (
             <ListItem
               button
