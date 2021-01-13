@@ -50,6 +50,7 @@ export async function AddProducts(data) {
 }
 
 export async function UpdateProduct(data) {
+  console.log("data: " + data.product_id)
   // /products/update_product.php
   try {
     var res = await Axios({
@@ -58,14 +59,16 @@ export async function UpdateProduct(data) {
       url: Constants.BASE_URL + "/products/update_product.php",
       validateStatus: () => true,
       data: {
-        product_id: data['id'],
-        product_name: data['name'],
-        product_price: data['price'],
-        category_id: data['category']
+        product_id: data.product_id,
+        product_name: data.product_name,
+        product_price: data.product_price,
+        category_id: data.category_id
       }
     })
+    console.log('API: ', res)
   } catch (error) {
-    
+    console.log('API Error: ',error.res.data)
+    // return error.res.data;
   }
   
 }

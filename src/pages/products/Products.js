@@ -76,24 +76,17 @@ function Products(props) {
             }),
 
           onRowUpdate: (newData, oldData) =>
-          
             new Promise(async (resolve, reject) => {
-              
-              setTimeout(() => {
-                const dataUpdate = [...products];
-                const index = oldData.tableData.id;
-                dataUpdate[index] = newData;
-                resolve();
-
-                 
-              }, 1000);
               await updateProduct({
-                product_id: newData['id'],
-                product_name: newData['name'],
-                product_price: newData['price'],
-                category_id: newData['category'],
-              })
-              
+                product_id: oldData.id,
+                product_name: oldData.name,
+                product_price: oldData.price,
+                category_id: oldData.category,
+              }, { product_id: newData.id,
+                product_name: newData.name,
+                product_price: newData.price,
+                category_id: newData.category,})
+              resolve();
             }),
         }}
       />

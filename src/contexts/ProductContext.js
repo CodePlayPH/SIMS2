@@ -26,9 +26,9 @@ const ProductContextProvider = (props) => {
     }
 
     
-    const updateProduct = async (oldData, newData) => {
+    const updateProduct = async (oldData, ...newData) => {
         setProductsLoading(true)
-        let data = await UpdateProduct(newData);
+        let data = await UpdateProduct(...newData);
         setProductsLoading(false)
         if (data != null) {
             var prevState = [...products];
@@ -36,7 +36,7 @@ const ProductContextProvider = (props) => {
             prevState[index] = newData
             setProducts(prevState)
         } else {
-            console.log(data)
+            // console.log(data)
             alert("naay mali")
         }
     }
