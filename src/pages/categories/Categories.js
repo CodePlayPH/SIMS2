@@ -50,20 +50,17 @@ function Categories() {
 
           onRowUpdate: (newData, oldData) =>
             new Promise(async (resolve, reject) => {
-              setTimeout(() => {
-                // const dataUpdate = [...categories];
-                // const index = oldData.tableData.id;
-                // dataUpdate[index] = newData.name;
-                // setColumns([...dataUpdate]);
-
-                resolve();
-            }, 1000);
-
-            await updateCategory({
-              category_name: newData.name
-            })
-
+              await updateCategory({
+                category_id: oldData.id,
+                category_name: oldData.name
+              }, 
+              {
+                category_id: newData.id,
+                category_name: newData.name
+              })
+              resolve();
             }),
+            
           onRowDelete: (oldData) =>
             new Promise(async (resolve, reject) => {
               reject();

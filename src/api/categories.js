@@ -56,8 +56,8 @@ export async function UpdateCategory(data) {
             url: Constants.BASE_URL + "/categories/update_category.php",
             validateStatus: () => true,
             data: {
-                category_id: data['id'],
-                category_name: data['name']
+                category_id: data.category_id,
+                category_name: data.category_name
             }
         });
         console.log(res)
