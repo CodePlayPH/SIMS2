@@ -11,7 +11,7 @@ function Categories() {
   const classes = useStyles();
   const { sizes } = useContext(SizeContext);
   const { categories, categoryLoading } = useContext(CategoryContext);
-  const { addCategories, updateCategory } = useContext(CategoryContext);
+  const { addCategories, updateCategory, deleteCategory } = useContext(CategoryContext);
   const categoryLookup = {};
 
   const [category, setCategory] = useState(CategoryContext);
@@ -60,9 +60,21 @@ function Categories() {
               })
               resolve();
             }),
-            
+
           onRowDelete: (oldData) =>
             new Promise(async (resolve, reject) => {
+              setTimeout(() => {
+                const dataDelete = [...categories];
+                const index = oldData.tableData.id;
+                dataDelete.splice(index, 1);
+                setCategory([...dataDelete]);
+
+                resolve();
+            }, 1000);
+
+              await deleteCategory({
+                category_id: oldData.id
+              })
               reject();
             }),
         }}

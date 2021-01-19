@@ -7,6 +7,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
+import Collapse from '@material-ui/core/Collapse';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -22,9 +23,17 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import ListIcon from "@material-ui/icons/List";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import CreateIcon from "@material-ui/icons/Create";
+import AddIcon from '@material-ui/icons/Add';
+import HistoryIcon from '@material-ui/icons/History';
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 
 import { Link, useHistory } from "react-router-dom";
@@ -40,10 +49,15 @@ function MainDrawer(props) {
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [open, setOpen] = React.useState(true);
 //   const [userData, setUserData] = useState(user_name)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleClick = () => {
+    setOpen(!open);
   };
 
   const logOut = () => {
@@ -76,8 +90,38 @@ function MainDrawer(props) {
       <div className={classes.toolbar} />
       {/* <Divider /> */}
       <List>
-        {["Dashboard",  "Product Sizes","Categories", "Products", "Entries"].map(
-          (text, index) => (
+      <ListItem button onClick={handleClick} >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sales Entries" />
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button className={classes.nested} to={`/home/Entries`} component={Link}>
+                  <ListItemIcon>
+                    <AddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="New Entry" />
+                </ListItem>
+
+                <ListItem button className={classes.nested} to={`/home/Entries`} component={Link}>
+                  <ListItemIcon>
+                    <HistoryIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="History" />
+                </ListItem>
+              </List>
+            </Collapse>
+        {[
+          "Dashboard",
+          "Product Sizes",
+          "Categories",
+          "Products",
+          // "Entries",
+        ].map((text, index) => (
+          <>
             <ListItem
               button
               key={text}
@@ -87,12 +131,15 @@ function MainDrawer(props) {
               onClick={() => setSelectedTab(index)}
               selected={selectedTab == index}
             >
-              <ListItemIcon >{drawerIcons[index]}</ListItemIcon>
+              <ListItemIcon>{drawerIcons[index]}</ListItemIcon>
               <ListItemText primary={text} />
               {/* <div style={{ display: 'flex', padding: 5, borderRadius: 40, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', width: 20, height: 20 }}><text style={{ color: 'white', fontSize: 10 }}>1</text></div> */}
             </ListItem>
-          )
-        )}
+
+            
+          </>
+        ))}
+        
       </List>
 
       <div
@@ -106,6 +153,7 @@ function MainDrawer(props) {
           backgroundColor: "red",
         }}
       ></div>
+      
     </div>
   );
 
@@ -223,6 +271,9 @@ const useStyles = makeStyles((theme) => ({
   logoutBtn: {
     color: "#ffffff",
     borderColor: "#ffffff",
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
   },
 }));
 

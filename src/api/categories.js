@@ -70,3 +70,26 @@ export async function UpdateCategory(data) {
         return null;
     }
 }
+
+export async function DeleteCategory(data) {
+    try {
+        var res = await Axios({
+            method: 'delete',
+            headers: headers(),
+            url: Constants.BASE_URL + "/categories/delete_category.php",
+            validateStatus: () => true,
+            data: {
+                category_id: data.category_id
+            }
+        })
+        console.log(res)
+        if (!res.data['error']) {
+            return true
+        } else {
+            return null;
+        }
+
+    } catch (error) {
+        return null
+    }
+}
