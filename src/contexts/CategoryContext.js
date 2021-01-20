@@ -50,7 +50,7 @@ const CategoryCotextProvider = (props) => {
         let itemData = await DeleteCategory(data)
         setCategoryLoading(false)
         if (itemData != null) {
-            itemData = data['id']
+            itemData = data['id'] 
         } else {
             alert("An error occured during the action.");
         }

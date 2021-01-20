@@ -49,7 +49,7 @@ function MainDrawer(props) {
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 //   const [userData, setUserData] = useState(user_name)
 
   const handleDrawerToggle = () => {
