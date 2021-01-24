@@ -21,7 +21,6 @@ function Products(props) {
   const categoryLookup = {};
 
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState("");
   const [productName, setProductName] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [productSize, setProductSize] = useState("");

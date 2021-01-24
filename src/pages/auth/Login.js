@@ -86,12 +86,14 @@ function Login() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h4" className="white-title">Junex Seafood & Grill</Typography>
+          {/* <Typography component="h3" variant="h5" className="white-texts">
             Sign in
-          </Typography>
+          </Typography> */}
           <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
-              variant="outlined"
+              variant="filled"
+              className="white-textFields"
               margin="normal"
               required={true}
               fullWidth
@@ -118,12 +120,12 @@ function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
-                <Link href="/access_register" variant="body2">
+                <Link href="/access_register" variant="body2" className="white-links">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -143,7 +145,9 @@ function Login() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    
     height: "100vh",
+    
   },
   image: {
     backgroundImage: "url(https://source.unsplash.com/random)",
@@ -154,12 +158,15 @@ const useStyles = makeStyles((theme) => ({
         : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
+    
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    paddingTop: "10%",
+    
   },
   avatar: {
     margin: theme.spacing(1),
@@ -170,7 +177,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
     backgroundColor: "#57B894"
   },
 }));

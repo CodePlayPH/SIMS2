@@ -1,10 +1,34 @@
-#btn-submit {
-  background-color: #57B894;
+.MuiGrid-grid-md-5 {
+  background-color: #2E3033 !important;
 }
+
+#btn-submit {
+
+  background-color: #7AE02D;
+}
+
 #btn-submit:hover {
-  background-color: #499b7d;
+  background-color: #5DCE1C;
 }
 
 #formControl:focus {
     color: #499b7d !important;
+}
+
+.white-title {
+  color: #ffffff !important;
+  font-family: poppins !important;
+}
+
+.white-texts {
+  color: #ffffff !important
+}
+
+.white-textFields {
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.white-links {
+  color: #BDBCC1 !important;
 }

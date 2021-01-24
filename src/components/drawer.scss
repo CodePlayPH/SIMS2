@@ -1,8 +1,35 @@
+.MuiListItemText-primary {
+    color: #ffffff;
+}
+
+.drawer-icon {
+    color: #ffffff !important;
+}
+
 .Mui-selected {
     .MuiListItemText-root {
         span {
-            color: "#57B894" !important;
+            color: #7AE02D !important;
         }
+        
+    }
+    .drawer-icon {
+        color: #7AE02D !important;
     }
     
+}
+
+.drawer-icon {
+    color: #ffffff !important;
+}
+
+
+
+.title {
+    color: #000000;
+}
+
+.logoutBtn {
+    color: "#569DFC";
+
 }

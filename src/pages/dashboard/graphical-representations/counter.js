@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import CountUp from "react-countup";
 import LocalDiningIcon from "@material-ui/icons/LocalDining";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import AcUnitIcon from "@material-ui/icons/AcUnit";
-
+import { ProductContext } from "../../../contexts/ProductContext";
 import "../Dashboard.scss";
+import Products from "../../products/Products";
 
 function Counter() {
+  const { products } = useContext(ProductContext);
+  const categoryCount = {};
+
+  useEffect(() => {
+    products.map((product) => {
+      categoryCount[product.id] = product.name
+    })
+  }, [])
+
   const [cardsValues, setCardValues] = useState([
     {
       header_title: "Featured",
-      card_title: 28,
+      card_title: categoryCount,
       card_text:
         "With supporting text below as a natural lead-in to additional content.",
       card_footer: "Updated about a minute ago",

@@ -34,7 +34,7 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
-
+import CPPH_Logo from '../resources/images/CPPH2.png'
 
 import { Link, useHistory } from "react-router-dom";
 import { HoverState } from "@devexpress/dx-react-chart";
@@ -92,7 +92,7 @@ function MainDrawer(props) {
       <List>
       <ListItem button onClick={handleClick} >
               <ListItemIcon>
-                <InboxIcon />
+                <InboxIcon className="drawer-icon" />
               </ListItemIcon>
               <ListItemText primary="Sales Entries" />
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -100,15 +100,15 @@ function MainDrawer(props) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button className={classes.nested} to={`/home/Entries`} component={Link}>
-                  <ListItemIcon>
-                    <AddIcon />
+                  <ListItemIcon className="drawer-icon">
+                    <AddIcon className="drawer-icon" />
                   </ListItemIcon>
                   <ListItemText primary="New Entry" />
                 </ListItem>
 
                 <ListItem button className={classes.nested} to={`/home/Entries`} component={Link}>
                   <ListItemIcon>
-                    <HistoryIcon />
+                    <HistoryIcon className="drawer-icon"   />
                   </ListItemIcon>
                   <ListItemText primary="History" />
                 </ListItem>
@@ -131,7 +131,7 @@ function MainDrawer(props) {
               onClick={() => setSelectedTab(index)}
               selected={selectedTab == index}
             >
-              <ListItemIcon>{drawerIcons[index]}</ListItemIcon>
+              <ListItemIcon className="drawer-icon">{drawerIcons[index]}</ListItemIcon>
               <ListItemText primary={text} />
               {/* <div style={{ display: 'flex', padding: 5, borderRadius: 40, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', width: 20, height: 20 }}><text style={{ color: 'white', fontSize: 10 }}>1</text></div> */}
             </ListItem>
@@ -153,7 +153,9 @@ function MainDrawer(props) {
           backgroundColor: "red",
         }}
       ></div>
-      
+      {/* <div>
+        <img src={CPPH_Logo} />
+      </div> */}
     </div>
   );
 
@@ -173,11 +175,12 @@ function MainDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className="title">
             Sales Inventory Monitoring System
           </Typography>
           <Button
-          className={classes.logoutBtn}
+          // className={classes.logoutBtn}
+          className="logoutBtn"
             variant="outlined"
             // color="default"
             onClick={() => logOut()}
@@ -249,7 +252,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
-      backgroundColor: "#57B894"
+      // backgroundColor: "#57B894"
+      backgroundColor: "#F7F7F7"
     },
   },
   menuButton: {
@@ -262,15 +266,15 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    
+    backgroundColor: "#2E3033"
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
   logoutBtn: {
-    color: "#ffffff",
-    borderColor: "#ffffff",
+    color: "#569DFC",
+    borderColor: "#569DFC",
   },
   nested: {
     paddingLeft: theme.spacing(4),
