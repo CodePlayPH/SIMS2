@@ -1,7 +1,6 @@
 import Axios from "axios";
 import * as Constants from "../utils/constants";
 import { headers } from "../utils/utils";
-var localData = JSON.parse(localStorage.getItem("userData"));
 
 export async function FetchProducts() {
   try {

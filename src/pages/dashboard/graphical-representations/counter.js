@@ -4,18 +4,15 @@ import CountUp from "react-countup";
 import LocalDiningIcon from "@material-ui/icons/LocalDining";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import AcUnitIcon from "@material-ui/icons/AcUnit";
-import { ProductContext } from "../../../contexts/ProductContext";
+import { DashboardContext } from "../../../contexts/DashboardContext";
 import "../Dashboard.scss";
-import Products from "../../products/Products";
 
-function Counter() {
-  const { products } = useContext(ProductContext);
+function Counter(props) {
+  const { dashboardData } = useContext(DashboardContext);
   const categoryCount = {};
 
   useEffect(() => {
-    products.map((product) => {
-      categoryCount[product.id] = product.name
-    })
+   
   }, [])
 
   const [cardsValues, setCardValues] = useState([

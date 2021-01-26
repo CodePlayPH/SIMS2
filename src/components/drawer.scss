@@ -30,6 +30,15 @@
 }
 
 .logoutBtn {
-    color: "#569DFC";
+    color: #F50057 !important;
+    border-color: #F50057 !important;
+}
 
+.logoutBtn:hover {
+    color: #ffffff !important;
+    border-color: #F50057 !important;
+    background-color: #F50057 !important;
+
+    -webkit-box-shadow: 5px 6px 10px -4px rgba(0, 0, 0, 0.52);
+    box-shadow: 5px 6px 10px -4px rgba(0, 0, 0, 0.52);
 }
