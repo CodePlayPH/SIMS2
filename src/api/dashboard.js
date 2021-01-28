@@ -9,12 +9,16 @@ export async function FetchTopEntries() {
         headers: headers(),
         url: Constants.BASE_URL + "/reports/get_top_entries_by_category.php",
         validateStatus: () => true,
+        data: {
+          interval: "week"
+        }
       });
-      console.log("Result sa API: ", res);
-     
+      console.log(res);
       if (!res.data["error"]) {
+        
         return res.data["data"];
       } else {
+        console.log("Error sya")
         return null;
       }
     } catch (error) {

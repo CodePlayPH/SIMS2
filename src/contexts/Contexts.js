@@ -2,7 +2,7 @@ import React from 'react';
 import CategoryContextProvider from './CategoryContext';
 
 import AuthContextProvider from './AuthContext';
-
+import DashboardContextProvider from './DashboardContext';
 import ProductContextProvider from './ProductContext';
 import SizeContextProvider from './SizeCotext';
 
@@ -13,7 +13,9 @@ function Contexts(props) {
             <CategoryContextProvider>
                 <SizeContextProvider>
                     <ProductContextProvider>
-                        {props.children}
+                        <DashboardContextProvider>
+                            {props.children}
+                        </DashboardContextProvider>
                     </ProductContextProvider>
                 </SizeContextProvider>
             </CategoryContextProvider>

@@ -11,7 +11,7 @@ export async function FetchCategories(code) {
             validateStatus: () => true,
         });
 
-        console.log(res)
+        // console.log(res)
         if (!res.data['error']) {
             return res.data['data'];
         } else {
@@ -36,7 +36,7 @@ export async function AddCategory(data) {
                 category_name: data['name']
             }
         });
-        console.log(res)
+        // console.log(res)
         if (!res.data['error']) {
             return { "id": res.data['id'], "created_at": res.data['date'] };
         } else {
@@ -60,7 +60,7 @@ export async function UpdateCategory(data) {
                 category_name: data.category_name
             }
         });
-        console.log(res)
+        // console.log(res)
         if (!res.data['error']) {
             return true
         } else {

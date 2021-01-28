@@ -11,7 +11,7 @@ export async function FetchProducts() {
       validateStatus: () => true,
     });
 
-    console.log(res);
+    // console.log(res);
     if (!res.data["error"]) {
       return res.data["data"];
     } else {

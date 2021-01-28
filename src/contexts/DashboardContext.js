@@ -7,13 +7,14 @@ export const DashboardContext = createContext();
     const [dashboardData, setDashboardData] = useState([])
     const [dataLoading, setDataLoading] = useState(true)
 
-    const fetchTopEntries = async () => {
+    const fetchTopEntries = async (interval) => {
         setDataLoading(true)
-        let data = await FetchTopEntries();
+        let data = await FetchTopEntries(interval);
         setDataLoading(false)
         if (data != null) {
             setDashboardData(data)
         }
+        console.log("Gikan kay DashboardContext ", data)
     }
 
   return (

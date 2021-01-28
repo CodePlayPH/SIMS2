@@ -8,61 +8,58 @@ import { DashboardContext } from "../../../contexts/DashboardContext";
 import "../Dashboard.scss";
 
 function Counter(props) {
-  const { dashboardData } = useContext(DashboardContext);
+  const [interval, setInterval] = useState("");
+  const { dashboardData, fetchTopEntries } = useContext(DashboardContext);
   const categoryCount = {};
+  const sizeLookup = {};
+
+  async function handleInterval(event) {
+    // interval
+    event.preventDefault();
+    // setLoginStat(false);
+    // setLoading(true);
+    var stat = await fetchTopEntries(interval);
+    // setLoginStat(!stat);
+    // setLoading(false);
+
+    if(stat) {
+      window.location.reload(false);
+    }
+  }
+
+  const [cardsValues, setCardValues] = useState([]);
 
   useEffect(() => {
-   
+    dashboardData.map((data) => (
+      setCardValues([data])
+    ))
+    
+    
   }, [])
-
-  const [cardsValues, setCardValues] = useState([
-    {
-      header_title: "Featured",
-      card_title: categoryCount,
-      card_text:
-        "With supporting text below as a natural lead-in to additional content.",
-      card_footer: "Updated about a minute ago",
-      card_logo: <LocalDiningIcon />,
-    },
-    {
-      header_title: "Featured",
-      card_title: 32,
-      card_text:
-        "With supporting text below as a natural lead-in to additional content.",
-      card_footer: "Updated about a minute ago",
-      card_logo: <DirectionsWalkIcon />,
-    },
-    {
-      header_title: "Featured",
-      card_title: 12,
-      card_text:
-        "With supporting text below as a natural lead-in to additional content.",
-      card_footer: "Updated about a minute ago",
-      card_logo: <AcUnitIcon />,
-    },
-  ]);
 
   return (
     <>
       <div className="row">
-        {cardsValues.map((cards) => (
+        {dashboardData.map((data) => (
           <div className="col">
             <div className="card text-center">
-              <div className="card-header">{cards.header_title}</div>
+              <div className="card-header">{data.Category_name}</div>
               <div className="card-body">
-                <div className="card-logo">{cards.card_logo}</div>
+                <div className="card-logo">{data.card_logo}</div>
                 <h5 className="card-title">
-                  <CountUp start={0} end={cards.card_title} delay={0}>
+                  <CountUp start={0} end={data.card_title} delay={0}>
+                    {console.log("Data in counter ",data.name)}
                     {({ countUpRef }) => (
+                      
                       <div>
                         <span ref={countUpRef} />
                       </div>
                     )}
                   </CountUp>
                 </h5>
-                <p className="card-text">{cards.card_text}</p>
+                <p className="card-text">{data.card_text}</p>
               </div>
-              <div className="card-footer text-muted">{cards.card_footer}</div>
+              <div className="card-footer text-muted">{data.card_footer}</div>
             </div>
           </div>
         ))}
