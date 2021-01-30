@@ -6,13 +6,23 @@
     height: 100vh;
     
     .row {
-        // display: flex;
+        display: flex !important;
+        flex-direction: column !important;
 
         img {
-            width: 100%;
+            align-items: center;
+            width: 90% !important;
             height: 100%;
             -o-object-fit: cover;
             object-fit: cover;
+            margin: auto;
+
+        }
+
+        .fourOfour {
+            background-color: #F50057;
+            color: #ffffff;
+            margin-top: 1rem;
         }
     }
 }

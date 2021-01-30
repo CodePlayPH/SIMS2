@@ -23,6 +23,9 @@ import { AuthContext } from "../../contexts/AuthContext";
 import "./auth.scss"
 import { BorderColor } from "@material-ui/icons";
 
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
 
 function Register() {
   const classes = useStyles();
@@ -34,6 +37,26 @@ function Register() {
   const [accountType, setAccountType] = useState("");
   const [position, setPosition] = useState("");
   const [Dept, setDept] = useState("");
+  const [open, setOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // Snackbar*****
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+   // Snackbar*****
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   async function handleRegister(event) {
     event.preventDefault();
@@ -43,20 +66,22 @@ function Register() {
       access_type: accountType
     });
 
-    if (stat) {
+    if (stat === false) {
       history.replace("/");
     }else {
-      alert("Error: " + stat.error)
+      handleClick()
+      setErrorMsg("Error: "+stat.message)
+      alert("Error: " + stat.message)
     }
   }
 
   const [ accountTypeState, setAccountTypeState ] = useState([
     {
-      value: "admin",
+      value: "1",
       label: "Admin"
     },
     {
-      value: "staff",
+      value: "2",
       label: "Staff"
     }
   ])
@@ -152,6 +177,12 @@ function Register() {
           </Grid>
         </form>
       </div>
+
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            Registration Failed. {errorMsg}
+          </Alert>
+        </Snackbar>
     </Container>
   );
 }

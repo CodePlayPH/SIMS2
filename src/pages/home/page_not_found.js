@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch, useHistory } from 'react-router-dom'
-import notFoundImage from '../../resources/images/404.svg'
+import notFoundImage from '../../resources/images/not_found.svg'
 import './page_not_found.scss'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ function Page_not_found() {
 
         <div className="row">
           <div  className={classes.roots}>
-            <Button variant="contained" color="primary" onClick={() => history.replace("/")}>Go Back to  Login</Button>
+            <Button variant="contained" className="fourOfour" onClick={() => history.replace("/")}>Go Back to  Login</Button>
           </div>
         </div>
       </div>

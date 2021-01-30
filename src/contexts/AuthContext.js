@@ -34,6 +34,7 @@ const AuthContextProvider = (props) => {
         if (res != null) {
             return true;
         } else {
+            console.log(data)
             return false;
         }
     }

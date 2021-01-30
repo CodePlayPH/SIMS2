@@ -15,12 +15,10 @@ export async function UserLogin(code) {
         if (!res.data['error']) {
             return res.data;
         } else {
-            return null;
+            console.log(res.data['error'])
+            return res.data['error'];
         }
-        // return response.data
-        // alert(res);  
     } catch (error) {
-        // console.log(res);
         return null;
     }
 }
