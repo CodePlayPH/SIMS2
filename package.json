@@ -2,6 +2,7 @@
   "name": "root",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://18.189.22.79",
   "dependencies": {
     "@devexpress/dx-react-chart": "^2.7.3",
     "@devexpress/dx-react-chart-material-ui": "^2.7.3",
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^1.0.6"
   }
 }
