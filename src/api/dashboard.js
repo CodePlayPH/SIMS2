@@ -2,7 +2,7 @@ import Axios from "axios";
 import * as Constants from "../utils/constants";
 import { headers } from "../utils/utils";
 
-export async function FetchTopEntries() {
+export async function FetchTopEntries(interval) {
     try {
       var res = await Axios({
         method: "post",
@@ -10,7 +10,8 @@ export async function FetchTopEntries() {
         url: Constants.BASE_URL + "/reports/get_top_entries_by_category.php",
         validateStatus: () => true,
         data: {
-          interval: "month"
+          interval: "week"
+          // interval: interval
         }
       });
       console.log(res);

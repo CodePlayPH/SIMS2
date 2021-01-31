@@ -7,31 +7,76 @@ import AcUnitIcon from "@material-ui/icons/AcUnit";
 import { DashboardContext } from "../../../contexts/DashboardContext";
 import "../Dashboard.scss";
 
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+
 function Counter(props) {
+  
   const [interval, setInterval] = useState("");
-  const { dashboardData } = useContext(DashboardContext);
+  const { dashboardData, fetchTopEntries } = useContext(DashboardContext);
   const categoryCount = {};
   const sizeLookup = {};
 
-  // async function handleInterval(event) {
-  //   // interval
-  //   event.preventDefault();
-  //   // setLoginStat(false);
-  //   // setLoading(true);
-  //   var stat = await fetchTopEntries(interval);
-  //   // setLoginStat(!stat);
-  //   // setLoading(false);
+  const classes = useStyles();
+  const [age, setAge] = React.useState('');
+  const [open, setOpen] = React.useState(false);
 
-  //   if(stat) {
-  //     window.location.reload(false);
-  //   }
-  // }
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
-  const [cardsValues, setCardValues] = useState([]);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  async function handleInterval(event) {
+    event.preventDefault();
+    // setLoginStat(false);
+    // setLoading(true);
+    var stat = await fetchTopEntries(interval);
+    // setLoginStat(!stat);
+    // setLoading(false);
+
+    if(stat) {
+      window.location.reload(false);
+    }
+  }
+
     
 
   return (
     <>
+      <Button className={classes.button} onClick={handleOpen}>
+        Select Range to count
+      </Button>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={age}
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+
       <div className="row">
         {dashboardData.map((data) => (
           <div className="col">
@@ -60,5 +105,16 @@ function Counter(props) {
     </>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    // margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
 
 export default Counter;
