@@ -9,33 +9,26 @@ import "../Dashboard.scss";
 
 function Counter(props) {
   const [interval, setInterval] = useState("");
-  const { dashboardData, fetchTopEntries } = useContext(DashboardContext);
+  const { dashboardData } = useContext(DashboardContext);
   const categoryCount = {};
   const sizeLookup = {};
 
-  async function handleInterval(event) {
-    // interval
-    event.preventDefault();
-    // setLoginStat(false);
-    // setLoading(true);
-    var stat = await fetchTopEntries(interval);
-    // setLoginStat(!stat);
-    // setLoading(false);
+  // async function handleInterval(event) {
+  //   // interval
+  //   event.preventDefault();
+  //   // setLoginStat(false);
+  //   // setLoading(true);
+  //   var stat = await fetchTopEntries(interval);
+  //   // setLoginStat(!stat);
+  //   // setLoading(false);
 
-    if(stat) {
-      window.location.reload(false);
-    }
-  }
+  //   if(stat) {
+  //     window.location.reload(false);
+  //   }
+  // }
 
   const [cardsValues, setCardValues] = useState([]);
-
-  useEffect(() => {
-    dashboardData.map((data) => (
-      setCardValues([data])
-    ))
     
-    
-  }, [])
 
   return (
     <>
@@ -47,7 +40,7 @@ function Counter(props) {
               <div className="card-body">
                 <div className="card-logo">{data.card_logo}</div>
                 <h5 className="card-title">
-                  <CountUp start={0} end={data.card_title} delay={0}>
+                  <CountUp start={0} end={data.Total_quantity} delay={0}>
                     {console.log("Data in counter ",data.name)}
                     {({ countUpRef }) => (
                       

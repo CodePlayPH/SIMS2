@@ -10,6 +10,8 @@ import { Route, Switch, useHistory } from 'react-router-dom'
 import { CategoryContext } from "../../contexts/CategoryContext";
 import { ProductContext } from '../../contexts/ProductContext'
 import { SizeContext } from '../../contexts/SizeCotext'
+import { DashboardContext } from '../../contexts/DashboardContext';
+
 import Register from '../auth/Register';
 import Page_not_found from './page_not_found';
 import Sizes from '../sizes/Sizes';
@@ -28,11 +30,13 @@ function Home(props) {
     const { fetchCategories } = useContext(CategoryContext)
     const { fetchSizes } = useContext(SizeContext)
     const { fetchProducts } = useContext(ProductContext)
+    const {fetchTopEntries} = useContext(DashboardContext)
 
     useEffect(() => {
         Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
             fetchProducts()
         });
+        fetchTopEntries('');
     }, [])
     
     if (!localStorage.getItem('userData')) {

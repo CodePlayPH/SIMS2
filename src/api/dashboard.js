@@ -5,12 +5,12 @@ import { headers } from "../utils/utils";
 export async function FetchTopEntries() {
     try {
       var res = await Axios({
-        method: "get",
+        method: "post",
         headers: headers(),
         url: Constants.BASE_URL + "/reports/get_top_entries_by_category.php",
         validateStatus: () => true,
         data: {
-          interval: "week"
+          interval: "month"
         }
       });
       console.log(res);
