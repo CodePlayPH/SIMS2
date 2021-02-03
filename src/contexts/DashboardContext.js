@@ -7,9 +7,21 @@ const DashboardContextProvider = (props) => {
   const [dashboardData, setDashboardData] = useState([])
   const [dataLoading, setDataLoading] = useState(true)
 
-  const fetchTopEntries = async (interval) => {
+  // const fetchTopEntries = async (interval) => {
+  //   setDataLoading(true)
+  //   let data = await FetchTopEntries(interval);
+  //   setDataLoading(false)
+  //   if (data != null) {
+  //     setDashboardData(data)
+  //   }else{
+  //     setDashboardData([])
+  //   }
+  //   console.log("Gikan kay DashboardContext ", data)
+  // }
+
+  const fetchTopEntries = async () => {
     setDataLoading(true)
-    let data = await FetchTopEntries(interval);
+    let data = await FetchTopEntries();
     setDataLoading(false)
     if (data != null) {
       setDashboardData(data)

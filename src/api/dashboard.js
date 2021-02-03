@@ -2,7 +2,7 @@ import Axios from "axios";
 import * as Constants from "../utils/constants";
 import { headers } from "../utils/utils";
 
-export async function FetchTopEntries(interval) {
+export async function FetchTopEntries() {
     try {
       var res = await Axios({
         method: "post",

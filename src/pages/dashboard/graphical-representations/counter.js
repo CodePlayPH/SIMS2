@@ -54,11 +54,9 @@ function Counter(props) {
 
   return (
     <>
-      <Button className={classes.button} onClick={handleOpen}>
-        Select Range to count
-      </Button>
+      
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">Range</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -66,17 +64,17 @@ function Counter(props) {
           onClose={handleClose}
           onOpen={handleOpen}
           value={age}
-          onChange={handleChange}
+          onChange={(val) => setInterval(val.target.value)}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={"daily"}>Today</MenuItem>
+          <MenuItem value={"weekly"}>This Week</MenuItem>
+          <MenuItem value={"monthly"}>This Month</MenuItem>
         </Select>
+        <button onClick={handleInterval}>Go</button>
       </FormControl>
-
       <div className="row">
         {dashboardData.map((data) => (
           <div className="col">
