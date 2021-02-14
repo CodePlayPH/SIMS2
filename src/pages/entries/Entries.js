@@ -133,7 +133,17 @@ function NewEntries() {
               console.log("New data: " + newData.name + "; " + newData.price);
 
              setTimeout(() => {
-                setData([...mydata,newData])
+                // setData([...mydata,newData])
+                setData([
+                  {
+                    id: "123",
+                    name: newData.name,
+                    price: newData.price,
+                    created_at: "Feb 14 20121",
+
+                  }
+                ])
+
                 resolve();
              }, 1000)
               // let status = await addProduct({
