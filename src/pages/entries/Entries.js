@@ -31,7 +31,7 @@ function NewEntries() {
   const classes = useStyles();
   const [Category, setCategory] = React.useState("");
 
-  const handleChange = (event) => {
+  const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
 
@@ -41,9 +41,15 @@ function NewEntries() {
     setProduct(event.target.value);
   };
 
+
+  const [Size, setSize] = React.useState("");
+
+  const handleChangeSize = (event) => {
+    setSize(event.target.value);
+  };
   const { fetchCategories } = useContext(CategoryContext);
   const { fetchSizes } = useContext(SizeContext);
-  const { fetchProducts } = useContext(ProductContext);
+  // const { fetchProducts } = useContext(ProductContext);
 
   // useEffect(() => {
   //   Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
@@ -54,7 +60,7 @@ function NewEntries() {
 
   //table
 
-  const { products, productsLoading } = useContext(ProductContext);
+  // const { products, productsLoading } = useContext(ProductContext);
   const { sizes } = useContext(SizeContext);
   const { categories } = useContext(CategoryContext);
 
@@ -74,7 +80,7 @@ function NewEntries() {
     setSize_id(columns.size);
     setCategory_id(columns.category);
 
-    await addProduct({ product_name, product_price, size_id, category_id });
+    // await addProduct({ product_name, product_price, size_id, category_id });
   };
 
   useEffect(() => {
@@ -90,11 +96,18 @@ function NewEntries() {
   const [columns, setColumns] = useState([
     { title: "ID", field: "id", editable: "never" },
     { title: "Product Name", field: "name" },
-    { title: "Size", field: "size", lookup: sizeLookup },
-    { title: "Category", field: "category", lookup: categoryLookup },
+    // { title: "Size", field: "size", lookup: sizeLookup },
+    // { title: "Category", field: "category", lookup: categoryLookup },
     { title: "Price", field: "price" },
     { title: "Date Created", field: "created_at", editable: "never" },
   ]);
+
+  
+  const [mydata, setData] = useState([
+    // { id: "", name: "", category: "fish", created_at: "june 1, 2019" }
+  ]);
+  
+
 
   //table
 
@@ -104,101 +117,51 @@ function NewEntries() {
         <h1>Entries</h1>
       </div>
 
-      <div className="row entry-number-row">
-        <div>
-          <label>
-            Entry Number:
-            <input type="text" disabled name="name" />
-          </label>
-        </div>
-      </div>
 
-      
 
-      <div className="row entry-select-input">
-        <div className="col-sm"></div>
-        <div className="col-sm">
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              id="demo-simple-select-outlined-label"
-              className="entry-select"
-            >
-              Product Name:{" "}
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={Product}
-              onChange={handleChangeProduct}
-              label="Product Name: "
-            >
-              {products.map((product) => {
-                return <MenuItem value={product.size +" - "+ product.name + " - " + product.category}>{product.size +" - "+ product.name + " - " + product.category}</MenuItem>
-              })}
+      {/*Table*/}
+      <MaterialTable
+        // isLoading={productsLoading}
+        icons={tableIcons}
+        options={tablePageSizeoptions}
+        title="Products"
+        columns={columns}
+        data={mydata}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise(async (resolve, reject) => {
+              console.log("New data: " + newData.name + "; " + newData.price);
+
+             setTimeout(() => {
+                setData([...mydata,newData])
+                resolve();
+             }, 1000)
+              // let status = await addProduct({
+              //   product_name: newData.name,
+              //   product_price: newData.price,
+              //   size_id: newData.size,
+              //   category_id: newData.category,
+              // });
+
+              // if (status !== false) {
+               
+              // } else {
+              //   alert(status.error);
+              // }
               
-            </Select>
-          </FormControl>
-        </div>
-        <div className="col-sm">
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              id="demo-simple-select-outlined-label"
-              className="entry-select"
-            >
-              Category
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={Category}
-              onChange={handleChange}
-              label="Category"
-            >
-              {categories.map((category) => {
-                return <MenuItem value={category.id}>{category.name}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-        </div>
-        
-
-        <div className="col-sm">
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              id="demo-simple-select-outlined-label"
-              className="entry-select"
-            >
-              Size
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={Category}
-              onChange={handleChange}
-              label="Category"
-            >
-              <MenuItem value="Frozen Goods1">Frozen Goods1</MenuItem>
-              <MenuItem value="Frozen Goods2">Frozen Goods2</MenuItem>
-              <MenuItem value="Frozen Goods3">Frozen Goods3</MenuItem>
-              <MenuItem value="Frozen Goods4">Frozen Goods4</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className="col-sm">
-          QTY Here
-        </div>
-      </div>
-
-      <div className="row entry-text-area">
-        {/* <div className="col"> */}
-        <TextareaAutosize
-          className="txt-area"
-          aria-label="minimum height"
-          rowsMin={6}
-          placeholder="Minimum 3 rows"
-        />
-        {/* </div> */}
-      </div>
+              // resolve();
+              // reject();
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise(async (resolve, reject) => {
+              reject();
+            }),
+          onRowDelete: (oldData) =>
+            new Promise(async (resolve, reject) => {
+              reject();
+            }),
+        }}
+      />
 
       <div className="container btns-container">
         <div className="col-sm">
@@ -213,31 +176,6 @@ function NewEntries() {
          
         </div> */}
       </div>
-
-      {/*Table*/}
-      <MaterialTable
-        isLoading={productsLoading}
-        icons={tableIcons}
-        options={tablePageSizeoptions}
-        title="Products"
-        columns={columns}
-        data={products}
-        editable={{
-          onRowAdd: (newData) =>
-            new Promise(async (resolve, reject) => {
-              console.log("New data: " + columns.name + "; " + columns.price);
-              reject();
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise(async (resolve, reject) => {
-              reject();
-            }),
-          onRowDelete: (oldData) =>
-            new Promise(async (resolve, reject) => {
-              reject();
-            }),
-        }}
-      />
     </div>
   );
 }
