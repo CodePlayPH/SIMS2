@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { CircularProgress, LinearProgress } from "@material-ui/core";
 import Counter from "./graphical-representations/counter";
-import { BarGraphs, LineGraphs } from "./graphical-representations/graphs";
+// import { BarGraphs, LineGraphs } from "./graphical-representations/graphs";
 import { DashboardContext } from "../../contexts/DashboardContext";
 
 
@@ -29,15 +29,8 @@ function Dashboard() {
         <Counter />
       </div>
 
-      <div className="container graph-section">
-        <div className="row">
-          <div className="col-sm">
-            <BarGraphs />
-          </div>
-          <div className="col-sm">
-            <LineGraphs />
-          </div>
-        </div>
+      <div>
+        
       </div>
     </div>
   );
