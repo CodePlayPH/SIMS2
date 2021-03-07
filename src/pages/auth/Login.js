@@ -44,6 +44,7 @@ function Login() {
     setLoginStat(!stat);
     setLoading(false);
 
+    console.log(stat);
     if (stat) {
       // if this returns true
       history.replace("/home");

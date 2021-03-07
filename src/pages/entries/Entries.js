@@ -16,97 +16,99 @@ import "./styles.scss";
 import { CategoryContext } from "../../contexts/CategoryContext";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SizeContext } from "../../contexts/SizeCotext";
+import { EntryContext } from "../../contexts/EntriesContext";
+import { Autocomplete } from "@material-ui/lab";
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@material-ui/core";
+import { AuthContext } from "../../contexts/AuthContext";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: "100%",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 function NewEntries() {
   const classes = useStyles();
+  const { user } = useContext(AuthContext)
+  const { products, productsLoading } = useContext(ProductContext)
+  const { localEntries, saveLocalEntry, removeLocalEntry, getLocalEntries, addEntries, entriesLoading } = useContext(EntryContext)
+
+  const [qtyDialogOpen, setQtyDialogOpen] = React.useState(false);
+  const [qty, setQty] = React.useState()
   const [Category, setCategory] = React.useState("");
-
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-  };
-
-  const [Product, setProduct] = React.useState("");
-
-  const handleChangeProduct = (event) => {
-    setProduct(event.target.value);
-  };
-
-
-  const [Size, setSize] = React.useState("");
-
-  const handleChangeSize = (event) => {
-    setSize(event.target.value);
-  };
-  const { fetchCategories } = useContext(CategoryContext);
-  const { fetchSizes } = useContext(SizeContext);
-  // const { fetchProducts } = useContext(ProductContext);
-
-  // useEffect(() => {
-  //   Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
-  //     fetchProducts();
-  //     console.log("akoa ning categorisss" + fetchCategories());
-  //   });
-  // }, []);
-
-  //table
-
-  // const { products, productsLoading } = useContext(ProductContext);
-  const { sizes } = useContext(SizeContext);
-  const { categories } = useContext(CategoryContext);
-
-  const [product_name, setProduct_name] = useState("");
-  const [product_price, setProduct_price] = useState("");
-  const [size_id, setSize_id] = useState("");
-  const [category_id, setCategory_id] = useState("");
-  const { addProduct } = useContext(ProductContext);
-
-  const sizeLookup = {};
-  const categoryLookup = {};
-
-  const handleAddNow = async (event) => {
-    event.preventDefault();
-    setProduct_name(columns.name);
-    setProduct_price(columns.price);
-    setSize_id(columns.size);
-    setCategory_id(columns.category);
-
-    // await addProduct({ product_name, product_price, size_id, category_id });
-  };
+  const [selectedIndex, setSelectedIndex] = React.useState([])
+  const [productsData, setProductsData] = React.useState([])
+  const [columns, setColumns] = React.useState([]);
+  const [autoCompleteValue, setAutoCompleteValue] = React.useState()
+  const [autoCompleteKey, setAutoCompleteKey] = React.useState(Date.now())
 
   useEffect(() => {
-    sizes.map((size) => {
-      sizeLookup[size.id] = size.name;
+    const productsDataHolder = []
+    products.map((data, index) => {
+      // console.log(data);
+      productsDataHolder.push({
+        id: data['id'],
+        name: data['name'],
+        size: data['Size_name'],
+        category: data['Category_name'],
+        size_id: data['size'],
+        category_id: data['category']
+      });
+
     });
+    setProductsData(productsDataHolder);
 
-    categories.map((category) => {
-      categoryLookup[category.id] = category.name;
-    });
-  }, []);
+    setColumns([
+      { title: "Product Name", field: "name", },
+      { title: "Category", field: "category", },
+      { title: "Size", field: 'size', },
+      { title: "Quantity", field: "qty" }
+      // { title: "Date Created", field: "created_at", editable: "never" },
+    ]);
 
-  const [columns, setColumns] = useState([
-    { title: "ID", field: "id", editable: "never" },
-    { title: "Product Name", field: "name" },
-    // { title: "Size", field: "size", lookup: sizeLookup },
-    // { title: "Category", field: "category", lookup: categoryLookup },
-    { title: "Price", field: "price" },
-    { title: "Date Created", field: "created_at", editable: "never" },
-  ]);
+    console.log('test')
+    getLocalEntries()
 
-  
-  const [mydata, setData] = useState([
-    // { id: "", name: "", category: "fish", created_at: "june 1, 2019" }
-  ]);
-  
+  }, [products])
+
+  const handleAddEntry = () => {
+    const productData = productsData[selectedIndex]
+    productData['qty'] = qty
+    saveLocalEntry(productData)
+    closeDialog()
+  }
+
+  const handleQtyChange = (e) => {
+    // const re = /^[0-9\b]+$/;
+    // if (e.target.value === '' || re.test(e.target.value)) {
+    // }
+    console.log(e.target.value);
+    if (e.target.value == "-") {
+      setQty(parseInt(qty));
+    } else {
+      setQty(Math.abs(e.target.value));
+
+    }
+  }
+
+  const closeDialog = () => {
+    setAutoCompleteValue('')
+    setAutoCompleteKey(Date.now())
+    setQtyDialogOpen(false)
+    setQty()
+
+  }
+
+  const submitEntries = async () => {
+    const entriesData = [];
+    const user = JSON.parse(localStorage.getItem("userData"));
+    localEntries.map((val) => {
+      var obj = {}
+      obj = val
+      obj.product_id = val.id
+      obj.user_id = user.id
+      entriesData.push(obj)
+    })
+    await addEntries(entriesData)
+  }
+
+
+
 
 
   //table
@@ -117,60 +119,61 @@ function NewEntries() {
         <h1>Entries</h1>
       </div>
 
+      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Autocomplete
+          key={autoCompleteKey}
+          options={productsData}
+          getOptionLabel={(option) => `${option.id} ${option.name} (${option.category}, ${option.size})`}
+          style={{ width: 300 }}
+          autoHighlight
+          clearOnBlur
+          value={autoCompleteValue}
+          inputValue={autoCompleteValue}
+          margin="normal"
+          className={classes.entrySelection}
+          onClose={console.log('test')}
+          onChange={(event, newValue) => {
+            if (newValue != null) {
+              setQtyDialogOpen(true)
+              // console.log(qtyDialogOpen)
+              let index = productsData.findIndex(productData => productData.id === newValue.id);
+              setAutoCompleteValue(`${newValue.id} ${newValue.name} (${newValue.category}, ${newValue.size})`)
+              setSelectedIndex(index)
+            }
+          }}
+          renderInput={(params) => <TextField
+            {...params}
+            label="Select Product"
+            variant="outlined"
+            onChange={(event) => {
+              setAutoCompleteValue(event.target.value)
+            }}
+          />}
+        />
+
+        <Button variant="contained" color="primary" size="large" disabled={localEntries.length == 0} onClick={() => submitEntries()}>
+          Submit Entries
+        </Button>
+      </div>
 
 
       {/*Table*/}
       <MaterialTable
-        // isLoading={productsLoading}
+        // isLoading={productsLoading}\
+        isLoading={entriesLoading}
         icons={tableIcons}
         options={tablePageSizeoptions}
         title="Products"
         columns={columns}
-        data={mydata}
+        data={localEntries}
         editable={{
-          onRowAdd: (newData) =>
-            new Promise(async (resolve, reject) => {
-              console.log("New data: " + newData.name + "; " + newData.price);
-
-             setTimeout(() => {
-                // setData([...mydata,newData])
-                setData([
-                  {
-                    id: "123",
-                    name: newData.name,
-                    price: newData.price,
-                    created_at: "Feb 14 20121",
-
-                  }
-                ])
-
-                resolve();
-             }, 1000)
-              // let status = await addProduct({
-              //   product_name: newData.name,
-              //   product_price: newData.price,
-              //   size_id: newData.size,
-              //   category_id: newData.category,
-              // });
-
-              // if (status !== false) {
-               
-              // } else {
-              //   alert(status.error);
-              // }
-              
-              // resolve();
-              // reject();
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise(async (resolve, reject) => {
-              reject();
-            }),
           onRowDelete: (oldData) =>
             new Promise(async (resolve, reject) => {
-              reject();
-            }),
+              removeLocalEntry(oldData)
+              resolve()
+            })
         }}
+
       />
 
       <div className="container btns-container">
@@ -186,8 +189,51 @@ function NewEntries() {
          
         </div> */}
       </div>
+
+      <Dialog open={qtyDialogOpen} onClose={closeDialog} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Enter Quantity</DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText>
+                        Enter Quantity.
+                    </DialogContentText> */}
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            min="0"
+            type="number"
+            value={qty}
+            onChange={handleQtyChange}
+            label="Quantity"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">
+            Cancel
+                    </Button>
+          <Button onClick={handleAddEntry} color="primary" disabled={qty ? false : true}>
+            Add
+                    </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
+
+
+
+const useStyles = makeStyles((theme) => ({
+  entrySelection: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: "100%",
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 export default NewEntries;

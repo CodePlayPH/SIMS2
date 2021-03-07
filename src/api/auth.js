@@ -12,13 +12,15 @@ export async function UserLogin(code) {
                 code: code
             }
         });
+        console.log(res);
         if (!res.data['error']) {
             return res.data;
         } else {
             console.log(res.data['error'])
-            return res.data['error'];
+            return null;
         }
     } catch (error) {
+        console.log(res);
         return null;
     }
 }

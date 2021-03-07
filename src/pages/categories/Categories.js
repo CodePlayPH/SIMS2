@@ -23,7 +23,7 @@ function Categories() {
   ]);
 
   return (
-    <div className="container">
+    <div className="">
       <MaterialTable
         isLoading={categoryLoading}
         icons={tableIcons}

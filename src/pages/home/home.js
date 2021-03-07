@@ -30,13 +30,15 @@ function Home(props) {
     const { fetchCategories } = useContext(CategoryContext)
     const { fetchSizes } = useContext(SizeContext)
     const { fetchProducts } = useContext(ProductContext)
-    const {fetchTopEntries} = useContext(DashboardContext)
+    const {fetchTopEntries,fetchSales} = useContext(DashboardContext)
 
     useEffect(() => {
+
         Promise.all([fetchCategories(), fetchSizes()]).then((values) => {
             fetchProducts()
         });
-        fetchTopEntries('');
+        fetchTopEntries('month');
+        fetchSales();
     }, [])
     
     if (!localStorage.getItem('userData')) {

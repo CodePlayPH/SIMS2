@@ -50,7 +50,7 @@ function MainDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
   const [open, setOpen] = React.useState(false);
-//   const [userData, setUserData] = useState(user_name)
+  //   const [userData, setUserData] = useState(user_name)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -73,8 +73,8 @@ function MainDrawer(props) {
     if (path === "Products") setSelectedTab(3);
     if (path === "Entries") setSelectedTab(4);
     if (path === "Reports") setSelectedTab(5);
-    
-    
+
+
   }, []);
 
   const drawerIcons = [
@@ -90,30 +90,30 @@ function MainDrawer(props) {
       <div className={classes.toolbar} />
       {/* <Divider /> */}
       <List>
-      <ListItem button onClick={handleClick} >
-              <ListItemIcon>
-                <InboxIcon className="drawer-icon" />
+        <ListItem button onClick={handleClick} selected={selectedTab == 4 || selectedTab == 5} >
+          <ListItemIcon>
+            <InboxIcon className="drawer-icon" />
+          </ListItemIcon>
+          <ListItemText primary="Sales Entries" />
+          {open ? <ExpandLess style={{ color: selectedTab == 4 || selectedTab == 5 ? '#7AE02D' : 'white' }} /> : <ExpandMore style={{ color: selectedTab == 4 || selectedTab == 5 ? '#7AE02D' : 'white' }} />}
+        </ListItem>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested} to={`/home/Entries`} component={Link} onClick={() => setSelectedTab(4)} selected={selectedTab == 4}>
+              <ListItemIcon className="drawer-icon">
+                <AddIcon className="drawer-icon" />
               </ListItemIcon>
-              <ListItemText primary="Sales Entries" />
-              {open ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primary="New Entry" />
             </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested} to={`/home/Entries`} component={Link}>
-                  <ListItemIcon className="drawer-icon">
-                    <AddIcon className="drawer-icon" />
-                  </ListItemIcon>
-                  <ListItemText primary="New Entry" />
-                </ListItem>
 
-                <ListItem button className={classes.nested} to={`/home/Entries`} component={Link}>
-                  <ListItemIcon>
-                    <HistoryIcon className="drawer-icon"   />
-                  </ListItemIcon>
-                  <ListItemText primary="History" />
-                </ListItem>
-              </List>
-            </Collapse>
+            <ListItem button className={classes.nested} to={`/home/Entries`} component={Link} onClick={() => setSelectedTab(5)} selected={selectedTab == 5}>
+              <ListItemIcon>
+                <HistoryIcon className="drawer-icon" />
+              </ListItemIcon>
+              <ListItemText primary="History" />
+            </ListItem>
+          </List>
+        </Collapse>
         {[
           "Dashboard",
           "Product Sizes",
@@ -136,10 +136,10 @@ function MainDrawer(props) {
               {/* <div style={{ display: 'flex', padding: 5, borderRadius: 40, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', width: 20, height: 20 }}><text style={{ color: 'white', fontSize: 10 }}>1</text></div> */}
             </ListItem>
 
-            
+
           </>
         ))}
-        
+
       </List>
 
       <div
@@ -179,8 +179,8 @@ function MainDrawer(props) {
             Sales Inventory Monitoring System
           </Typography>
           <Button
-          // className={classes.logoutBtn}
-          className="logoutBtn"
+            // className={classes.logoutBtn}
+            className="logoutBtn"
             variant="outlined"
             // color="default"
             onClick={() => logOut()}
@@ -188,7 +188,7 @@ function MainDrawer(props) {
           >
             Logout
           </Button>
-          
+
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

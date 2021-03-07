@@ -5,6 +5,7 @@ import AuthContextProvider from './AuthContext';
 import DashboardContextProvider from './DashboardContext';
 import ProductContextProvider from './ProductContext';
 import SizeContextProvider from './SizeCotext';
+import EntryContextProvider from './EntriesContext';
 
 
 function Contexts(props) {
@@ -14,7 +15,9 @@ function Contexts(props) {
                 <SizeContextProvider>
                     <ProductContextProvider>
                         <DashboardContextProvider>
-                            {props.children}
+                            <EntryContextProvider>
+                                {props.children}
+                            </EntryContextProvider>
                         </DashboardContextProvider>
                     </ProductContextProvider>
                 </SizeContextProvider>
@@ -22,5 +25,5 @@ function Contexts(props) {
         </AuthContextProvider>
     )
 }
-
+    
 export default Contexts

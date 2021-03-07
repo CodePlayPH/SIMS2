@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://18.189.22.79",
+  "homepage": "https://codeplayph.000webhostapp.com/",
   "dependencies": {
     "@devexpress/dx-react-chart": "^2.7.3",
     "@devexpress/dx-react-chart-material-ui": "^2.7.3",
@@ -14,6 +15,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.4.0",
     "axios": "^0.21.0",
+    "gh-pages": "^3.1.0",
     "material-table": "^1.69.2",
     "mdbreact": "^5.0.1",
     "node-sass": "^4.14.1",
@@ -22,6 +24,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-swipeable-views": "^0.13.9",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
