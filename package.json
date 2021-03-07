@@ -2,8 +2,8 @@
   "name": "root",
   "version": "0.1.0",
   "private": true,
+  "homepage": " https://codeplayph.github.io/SIMS2/",
   "proxy": "http://18.189.22.79",
-  "homepage": "https://codeplayph.000webhostapp.com/",
   "dependencies": {
     "@devexpress/dx-react-chart": "^2.7.3",
     "@devexpress/dx-react-chart-material-ui": "^2.7.3",
@@ -31,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
