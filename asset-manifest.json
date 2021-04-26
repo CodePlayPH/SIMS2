@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/SIMS2/static/css/main.2b99f216.chunk.css",
-    "main.js": "/SIMS2/static/js/main.8a6fded5.chunk.js",
-    "main.js.map": "/SIMS2/static/js/main.8a6fded5.chunk.js.map",
+    "main.js": "/SIMS2/static/js/main.572ff6b8.chunk.js",
+    "main.js.map": "/SIMS2/static/js/main.572ff6b8.chunk.js.map",
     "runtime-main.js": "/SIMS2/static/js/runtime-main.12ec2e50.js",
     "runtime-main.js.map": "/SIMS2/static/js/runtime-main.12ec2e50.js.map",
     "static/js/2.e7b21af6.chunk.js": "/SIMS2/static/js/2.e7b21af6.chunk.js",
@@ -29,6 +29,6 @@
     "static/js/runtime-main.12ec2e50.js",
     "static/js/2.e7b21af6.chunk.js",
     "static/css/main.2b99f216.chunk.css",
-    "static/js/main.8a6fded5.chunk.js"
+    "static/js/main.572ff6b8.chunk.js"
   ]
 }
