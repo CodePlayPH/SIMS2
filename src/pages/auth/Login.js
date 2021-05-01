@@ -48,7 +48,7 @@ function Login() {
     if (stat) {
       // if this returns true
       history.replace("/home");
-      
+
     } else {
       handleClick();
     }
@@ -76,9 +76,13 @@ function Login() {
     }
   }, [code]);
 
+  const toRegister = () => {
+    history.push("/access_register");
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
-      
+
 
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -108,7 +112,7 @@ function Login() {
               onChange={(val) => setCode(val.target.value)}
               value={code}
             />
-            
+
             <Button
               type="submit"
               fullWidth
@@ -126,7 +130,7 @@ function Login() {
                 </Link> */}
               </Grid>
               <Grid item>
-                <Link href="/access_register" variant="body2" className="white-links">
+                <Link onClick={() =>toRegister()} variant="body2" className="white-links">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -146,9 +150,9 @@ function Login() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    
+
     height: "100vh",
-    
+
   },
   image: {
     backgroundImage: "url(https://source.unsplash.com/random)",
@@ -159,7 +163,7 @@ const useStyles = makeStyles((theme) => ({
         : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
-    
+
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -167,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     paddingTop: "10%",
-    
+
   },
   avatar: {
     margin: theme.spacing(1),

@@ -1,0 +1,28 @@
+.ForOForContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    
+    .row {
+        display: flex !important;
+        flex-direction: column !important;
+
+        img {
+            align-items: center;
+            width: 90% !important;
+            height: 100%;
+            -o-object-fit: cover;
+            object-fit: cover;
+            margin: auto;
+
+        }
+
+        .fourOfour {
+            background-color: #F50057;
+            color: #ffffff;
+            margin-top: 1rem;
+        }
+    }
+}

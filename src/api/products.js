@@ -50,7 +50,7 @@ export async function AddProducts(data) {
 
 export async function UpdateProduct(data) {
   try {
-    var res = await Axios({
+    var response = await Axios({
       method: 'post',
       headers: headers(),
       url: Constants.BASE_URL + "/products/update_product.php",
@@ -62,8 +62,8 @@ export async function UpdateProduct(data) {
         category_id: data.category_id
       }
     })
-    console.log('API: ', res)
+    return response.data
   } catch (error) {
-    console.log('API Error: ', error.res.data)
+    return error.response.data;
   }
 }

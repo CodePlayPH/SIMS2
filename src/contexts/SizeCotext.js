@@ -27,8 +27,9 @@ function SizeContextProvider(props) {
             data.name = newData['name']
             console.log(data)
             setSize([...sizes, data])
+            return {message:'Add Success!', severity:'success'}
         } else {
-            alert('Something went wrong adding sizes. Make sure size name is unique')
+            return {message:'Add Failed!', severity:'error'}
         }
     }
 
@@ -40,9 +41,11 @@ function SizeContextProvider(props) {
             var prevState = [...sizes];
             var index = prevState.indexOf(oldData)
             prevState[index] = newData
+            console.log(prevState)
             setSize(prevState)
+            return {message:'Update Success!', severity:'success'}
         } else {
-            alert('Something went wrong updating size. Make sure size name is unique')
+            return {message:'Update Failed!', severity:'error'}
         }
     }
 

@@ -72,7 +72,7 @@ function MainDrawer(props) {
     if (path === "Categories") setSelectedTab(2);
     if (path === "Products") setSelectedTab(3);
     if (path === "Entries") setSelectedTab(4);
-    if (path === "Reports") setSelectedTab(5);
+    if (path === "History") setSelectedTab(5);
 
 
   }, []);
@@ -106,7 +106,7 @@ function MainDrawer(props) {
               <ListItemText primary="New Entry" />
             </ListItem>
 
-            <ListItem button className={classes.nested} to={`/home/Entries`} component={Link} onClick={() => setSelectedTab(5)} selected={selectedTab == 5}>
+            <ListItem button className={classes.nested} to={`/home/History`} component={Link} onClick={() => setSelectedTab(5)} selected={selectedTab == 5}>
               <ListItemIcon>
                 <HistoryIcon className="drawer-icon" />
               </ListItemIcon>
@@ -116,7 +116,7 @@ function MainDrawer(props) {
         </Collapse>
         {[
           "Dashboard",
-          "Product Sizes",
+          "Sizes",
           "Categories",
           "Products",
           // "Entries",

@@ -11,25 +11,32 @@ import './Sizes.scss';
 function Sizes() {
   const classes = useStyles();
   const { sizes, sizeLoading, addSizes, updateSizes } = useContext(SizeContext);
-//   const [size, setsize] = useState(SizeContext);
+  //   const [size, setsize] = useState(SizeContext);
 
-const [openSuccess, setOpenSuccess] = React.useState(false);
-const [columns, setColumns] = useState([
-  { title: "ID", field: "id", editable: "never" },
-  { title: "Size ", field: "name" },
-  { title: "Date Created", field: "created_at", editable: "never" },
-]);
+  const [snackBar, setSnackBar] = React.useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
 
-  const handleSuccessClick = () => {
-    setOpenSuccess(true);
-  };
+  const [columns, setColumns] = useState([
+    { title: "ID", field: "id", editable: "never" },
+    { title: "Size ", field: "name" },
+    { title: "Date Created", field: "created_at", editable: "never" },
+  ]);
+
+
+  const handleSnackbarOpen = () => {
+
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setOpenSuccess(false);
+    setSnackBar(prevState => ({ ...prevState, open: false }))
+
   };
 
   function Alert(props) {
@@ -48,46 +55,38 @@ const [columns, setColumns] = useState([
         editable={{
           onRowAdd: (newData) =>
             new Promise(async (resolve, reject) => {
-              await addSizes({
+              let status = await addSizes({
                 name: newData.name,
               });
-
+              setSnackBar({
+                open: true,
+                message: status.message,
+                severity: status.severity
+              })
               resolve();
             }),
 
           onRowUpdate: (newData, oldData) =>
             new Promise(async (resolve, reject) => {
-              let status = await updateSizes(
-                {
-                  id: oldData.id,
-                  name: oldData.name,
-                },
-                {
-                  id: newData.id,
-                  name: newData.name,
-                }
-              );
-
-              if (status != false) {
-                window.location.reload(false);
-                handleSuccessClick();
-              } else {
-                
-              }
-
+              let status = await updateSizes(oldData, newData);
+              setSnackBar({
+                open: true,
+                message: status.message,
+                severity: status.severity
+              })
               resolve();
             }),
         }}
       />
 
       <Snackbar
-      className="snackBar"
-        open={openSuccess}
+        className="snackBar"
+        open={snackBar.open}
         autoHideDuration={4000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="success">
-          Update Success!
+        <Alert onClose={handleClose} severity={snackBar.severity}>
+          {snackBar.message}
         </Alert>
       </Snackbar>
     </div>

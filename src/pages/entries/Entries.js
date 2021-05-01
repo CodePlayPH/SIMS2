@@ -177,14 +177,14 @@ function NewEntries() {
       />
 
       <div className="container btns-container">
-        <div className="col-sm">
+        {/* <div className="col-sm">
           <Button variant="contained" className="btn">
             Cancel
           </Button>
           <Button variant="contained" color="primary" className="btn">
             Add Item/s
           </Button>
-        </div>
+        </div> */}
         {/* <div className="col-sm">
          
         </div> */}

@@ -15,6 +15,8 @@ import { DashboardContext } from '../../contexts/DashboardContext';
 import Register from '../auth/Register';
 import Page_not_found from './page_not_found';
 import Sizes from '../sizes/Sizes';
+import History from '../history/History';
+import NotFound from '../not_found/NotFound';
 
 
 
@@ -53,9 +55,10 @@ function Home(props) {
                     <Route path="/home" exact component={Dashboard} />
                     <Route path="/home/Categories" component={Categories} />
                     <Route path="/home/Entries" component={NewEntry} />
+                    <Route path="/home/History" component={History} />
                     <Route path="/home/Products" component={Products} />
-                    <Route path="/home/Product Sizes" component={Sizes} />
-                    
+                    <Route path="/home/Sizes" component={Sizes} />
+                    {/* <Route component={NotFound} /> */}
                     
                 </Switch>
             </MainDrawer>

@@ -17,8 +17,9 @@ function Products(props) {
   const { categories } = useContext(CategoryContext);
   const { addProduct, updateProduct } = useContext(ProductContext);
 
-  const sizeLookup = {};
-  const categoryLookup = {};
+
+  // const sizeLookup = {};
+  // const categoryLookup = {};
 
   const [open, setOpen] = React.useState(false);
   const [productName, setProductName] = useState("");
@@ -26,72 +27,93 @@ function Products(props) {
   const [productSize, setProductSize] = useState("");
   const [productPrice, setProductPrice] = useState("");
 
-  useEffect(() => {
-    sizes.map((size) => {
-      sizeLookup[size.id] = size.name;
-    });
+  const [sizeLookup, setSizeLookUp] = useState({})
+  const [categoryLookup, setCategoryLookUp] = useState({})
 
-    categories.map((category) => {
-      categoryLookup[category.id] = category.name;
-    });
-  }, {});
-
-  const [columns, setColumns] = useState([
+  const col = [
     { title: "ID", field: "id", editable: "never" },
     { title: "Product Name", field: "name" },
     { title: "Size", field: "size", lookup: sizeLookup },
     { title: "Category", field: "category", lookup: categoryLookup },
     { title: "Price", field: "price", type: 'numeric' },
     { title: "Date Created", field: "created_at", editable: "never" },
-  ]);
+  ]
+
+  const [columns, setColumns] = useState(col);
+
+  useEffect(() => {
+    setSizesAndCategory()
+  }, [sizes, categories, products]);
+
+  useEffect(() => {
+    console.log('yess')
+    setSizesAndCategory()
+  }, [])
+
+  useEffect(() => {
+    console.log(categoryLookup, 'category')
+    console.log(sizeLookup, 'size')
+  }, [categoryLookup, sizeLookup])
+
+
+
+  const setSizesAndCategory = () => {
+    const sizeLook = {};
+    const categoryLook = {};
+    sizes.map((size) => {
+      sizeLook[size.id] = size.name;
+      setSizeLookUp(prevState => ({ ...prevState, [size.id]: size.name }))
+    });
+
+    categories.map((category) => {
+      categoryLook[category.id] = category.name;
+      setCategoryLookUp(prevState => ({ ...prevState, [category.id]: category.name }))
+    });
+
+    setColumns(prevState => [...prevState, prevState[2]['lookup'] = sizeLook])
+    setColumns(prevState => [...prevState, prevState[3]['lookup'] = categoryLook])
+  }
+
+
+
+
 
   return (
-      <MaterialTable
-        isLoading={productsLoading}
-        icons={tableIcons}
-        options={tablePageSizeoptions}
-        title="Products on Menu"
-        columns={columns}
-        data={products}
-        editable={{
-          onRowAdd: (newData) =>
-            new Promise(async (resolve, reject) => {
-            
-              let status = await addProduct({
-                product_name: newData.name,
-                product_price: newData.price,
-                size_id: newData.size,
-                category_id: newData.category,
-              });
+    <MaterialTable
+      isLoading={productsLoading}
+      icons={tableIcons}
+      options={tablePageSizeoptions}
+      title="Products on Menu"
+      columns={columns}
+      data={products}
+      editable={{
+        onRowAdd: (newData) =>
+          new Promise(async (resolve, reject) => {
 
-              if (status !== false) {
-               
-              } else {
-                alert(status.error);
-              }
-              
-              resolve();
+            let status = await addProduct({
+              product_name: newData.name,
+              product_price: newData.price,
+              size_id: newData.size,
+              category_id: newData.category,
+            });
 
-            }),
+            if (status !== false) {
 
-          onRowUpdate: (newData, oldData) =>
-            new Promise(async (resolve, reject) => {
-              await updateProduct({
-                product_id: oldData.id,
-                product_name: oldData.name,
-                product_price: oldData.price,
-                category_id: oldData.category,
-              }, 
-              { 
-                product_id: newData.id,
-                product_name: newData.name,
-                product_price: newData.price,
-                category_id: newData.category,
-              })
-              resolve();
-            }),
-        }}
-      />
+            } else {
+              alert(status.error);
+            }
+
+            resolve();
+
+          }),
+
+        onRowUpdate: (newData, oldData) =>
+          new Promise(async (resolve, reject) => {
+            await updateProduct(oldData,newData)
+            resolve();
+          }),
+      }}
+    />
   );
 }
 

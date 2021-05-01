@@ -50,14 +50,15 @@ export async function AddCategory(data) {
 
 export async function UpdateCategory(data) {
     try {
+        console.log(data)
         var res = await Axios({
             method: 'post',
             headers: headers(),
             url: Constants.BASE_URL + "/categories/update_category.php",
             validateStatus: () => true,
             data: {
-                category_id: data.category_id,
-                category_name: data.category_name
+                category_id: data['id'],
+                category_name: data['name'],
             }
         });
         // console.log(res)

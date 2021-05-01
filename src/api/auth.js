@@ -7,7 +7,7 @@ export async function UserLogin(code) {
         var res = await Axios({
             method: 'post',
             url: Constants.BASE_URL + "/auth/login.php",
-            validateStatus: () => true,
+            // validateStatus: () => true,
             data: {
                 code: code
             }

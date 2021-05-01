@@ -50,18 +50,11 @@ function Categories() {
 
           onRowUpdate: (newData, oldData) =>
             new Promise(async (resolve, reject) => {
-              let status = await updateCategory({
-                category_id: oldData.id,
-                category_name: oldData.name
-              }, 
-              {
-                category_id: newData.id,
-                category_name: newData.name
-              })
+              let status = await updateCategory(oldData,newData)
 
-              if(status != false) {
-                window.location.reload(false);
-              }
+              // if(status != false) {
+              //   window.location.reload(false);
+              // }
               resolve();
             }),
 
